@@ -1,6 +1,6 @@
-// import { Navigation } from "@shared/ui";
-import { MantineProvider } from '@mantine/core';
 import { Navigation } from '@shared/ui';
+import ConfigProviders from './config/ConfigProviders';
+import '@mantine/core/styles.css';
 
 export const metadata = {
   title: 'Next.js',
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MantineProvider>
+        <ConfigProviders>
           <header style={{ width: '100%' }}>
             <Navigation />
           </header>
@@ -29,7 +29,7 @@ export default function RootLayout({
           >
             {children}
           </div>
-        </MantineProvider>
+        </ConfigProviders>
       </body>
     </html>
   );
