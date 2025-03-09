@@ -1,13 +1,8 @@
 // widgets/charts/index.tsx
 import React from 'react';
 import { DonutChart } from '@mantine/charts';
-import { Box, Text } from '@mantine/core';
-import styled from 'styled-components';
-
-const ChartContainer = styled(Box)<{ height?: number }>`
-  height: ${(props) => props.height || 300}px;
-  width: 100%;
-`;
+import { Text } from '@mantine/core';
+import { ChartContainer } from './style/Chart.styled';
 
 // 도넛 차트 컴포넌트 (파이 차트 대체)
 interface PieChartProps {
@@ -31,7 +26,7 @@ export const PieChart: React.FC<PieChartProps> = ({
           justifyContent: 'center',
         }}
       >
-        <Text color="dimmed">데이터가 없습니다</Text>
+        <Text c="dimmed">데이터가 없습니다</Text>
       </ChartContainer>
     );
   }
@@ -40,13 +35,13 @@ export const PieChart: React.FC<PieChartProps> = ({
   const chartData = data.map((item) => ({
     name: item.label,
     value: item.value,
-    color: undefined, // Mantine이 자동으로 색상 할당
+    color: '', // Mantine이 자동으로 색상 할당
   }));
 
   return (
     <ChartContainer height={height}>
       {title && (
-        <Text size="sm" weight={500} mb="xs">
+        <Text size="sm" mb="xs">
           {title}
         </Text>
       )}
@@ -55,16 +50,9 @@ export const PieChart: React.FC<PieChartProps> = ({
         data={chartData}
         withLabels
         withTooltip
-        padAngle={0.5}
         thickness={30}
-        hoverEasing="elastic"
         tooltipDataSource="segment"
         chartLabel={`총 ${data.reduce((acc, curr) => acc + curr.value, 0)}명`}
-        labelProps={{ size: 'sm' }}
-        legendProps={{
-          position: 'right',
-          verticalAlign: 'middle',
-        }}
       />
     </ChartContainer>
   );

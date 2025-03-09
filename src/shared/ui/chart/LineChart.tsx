@@ -1,13 +1,8 @@
 // widgets/charts/index.tsx
 import React from 'react';
-import { AreaChart, LineChart as MantineLineChart } from '@mantine/charts';
-import { Box, Text } from '@mantine/core';
-import styled from 'styled-components';
-
-const ChartContainer = styled(Box)<{ height?: number }>`
-  height: ${(props) => props.height || 300}px;
-  width: 100%;
-`;
+import { LineChart as MantineLineChart } from '@mantine/charts';
+import { Text } from '@mantine/core';
+import { ChartContainer } from './style/Chart.styled';
 
 interface ChartProps {
   data: Array<{ [key: string]: any }>;
@@ -37,7 +32,7 @@ export const LineChart: React.FC<ChartProps> = ({
           justifyContent: 'center',
         }}
       >
-        <Text color="dimmed">데이터가 없습니다</Text>
+        <Text c="dimmed">데이터가 없습니다</Text>
       </ChartContainer>
     );
   }
@@ -45,7 +40,7 @@ export const LineChart: React.FC<ChartProps> = ({
   return (
     <ChartContainer height={height}>
       {title && (
-        <Text size="sm" weight={500} mb="xs">
+        <Text size="sm" mb="xs">
           {title}
         </Text>
       )}
@@ -56,10 +51,12 @@ export const LineChart: React.FC<ChartProps> = ({
         series={[{ name: yKey, color: color }]}
         curveType="natural"
         withLegend
-        legendProps={{ verticalAlign: 'bottom', height: 40 }}
+        legendProps={{
+          verticalAlign: 'top',
+          wrapperStyle: { display: 'flex', justifyContent: 'flex-end' },
+        }}
         gridAxis="xy"
         withTooltip
-        tooltipProps={{ color }}
         strokeWidth={2}
         yAxisProps={{
           width: 50,

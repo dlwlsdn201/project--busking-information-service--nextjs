@@ -1,6 +1,8 @@
 import { Navigation } from '@shared/ui';
 import ConfigProviders from './config/ConfigProviders';
 import '@mantine/core/styles.css';
+import '@mantine/charts/styles.css';
+import './globals.css';
 
 export const metadata = {
   title: 'Next.js',

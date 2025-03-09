@@ -3,11 +3,7 @@ import React from 'react';
 import { BarChart as MantineBarChart } from '@mantine/charts';
 import { Box, Text } from '@mantine/core';
 import styled from 'styled-components';
-
-const ChartContainer = styled(Box)<{ height?: number }>`
-  height: ${(props) => props.height || 300}px;
-  width: 100%;
-`;
+import { ChartContainer } from './style/Chart.styled';
 
 interface ChartProps {
   data: Array<{ [key: string]: any }>;
@@ -37,7 +33,7 @@ export const BarChart: React.FC<ChartProps> = ({
           justifyContent: 'center',
         }}
       >
-        <Text color="dimmed">데이터가 없습니다</Text>
+        <Text c="dimmed">데이터가 없습니다</Text>
       </ChartContainer>
     );
   }
@@ -45,7 +41,7 @@ export const BarChart: React.FC<ChartProps> = ({
   return (
     <ChartContainer height={height}>
       {title && (
-        <Text size="sm" weight={500} mb="xs">
+        <Text size="sm" mb="xs">
           {title}
         </Text>
       )}
@@ -55,10 +51,12 @@ export const BarChart: React.FC<ChartProps> = ({
         dataKey={xKey}
         series={[{ name: yKey, color: color }]}
         withLegend
-        legendProps={{ verticalAlign: 'bottom', height: 40 }}
+        legendProps={{
+          verticalAlign: 'top',
+          wrapperStyle: { display: 'flex', justifyContent: 'flex-end' },
+        }}
         gridAxis="xy"
         withTooltip
-        tooltipProps={{ color }}
         barProps={{ radius: 4 }}
         yAxisProps={{
           width: 50,

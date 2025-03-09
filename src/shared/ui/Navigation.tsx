@@ -19,7 +19,7 @@ export const Navigation = ({}): React.ReactElement => {
 
   return (
     <nav>
-      <ul style={{ listStyle: 'none', textDecoration: 'none' }}>
+      <ul className="flex w-full justify-center list-none no-underline gap-4">
         {...navigationItems}
       </ul>
     </nav>
