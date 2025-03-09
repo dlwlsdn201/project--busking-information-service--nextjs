@@ -4,6 +4,8 @@ const FlexLayoutContainer = styled.div<{
   $direction: 'vertical' | 'horizontal';
 }>`
   display: flex;
+  width: 100%;
+  height: 100%;
   flex-direction: ${(props) =>
     props.$direction === 'vertical' ? 'column' : 'row'};
 `;
