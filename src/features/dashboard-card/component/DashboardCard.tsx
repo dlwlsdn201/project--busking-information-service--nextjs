@@ -23,7 +23,10 @@ interface DashboardCardProps {
 const CardWrapper = styled(Paper)<PaperProps & { children: React.ReactNode }>`
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
   height: 100%;
   transition:
     transform 0.2s,
@@ -31,7 +34,7 @@ const CardWrapper = styled(Paper)<PaperProps & { children: React.ReactNode }>`
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -49,22 +52,22 @@ const IconWrapper = styled(Box)<
 `;
 
 const ValueText = styled(Text)`
-  font-size: 28px;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.2;
 `;
 
 const TitleText = styled(Text)`
-  font-size: 14px;
+  font-size: 1.25rem;
   color: #6c757d;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 `;
 
 const DescriptionText = styled(Text)<{
   positive?: boolean;
   children: React.ReactNode;
 }>`
-  font-size: 13px;
+  font-size: 1rem;
   color: ${(props) => (props.positive ? '#40c057' : '#ff6b6b')};
   font-weight: 500;
 `;
@@ -81,7 +84,7 @@ export const DashboardCard: React.FC<DashboardCardProps> = ({
 
   return (
     <CardWrapper withBorder radius="md" p="md">
-      <Group>
+      <Group gap={'xl'}>
         <Box>
           <TitleText>{title}</TitleText>
           <ValueText>{value}</ValueText>
@@ -91,7 +94,7 @@ export const DashboardCard: React.FC<DashboardCardProps> = ({
         <Box>
           {progress ? (
             <RingProgress
-              size={80}
+              size={100}
               roundCaps
               thickness={8}
               sections={[{ value: progress, color }]}

@@ -1,6 +1,7 @@
-import { Skeleton, Text } from '@mantine/core';
+import { Skeleton } from '@mantine/core';
 import { BarChart } from '@shared/ui/chart';
-import { ChartTitle, GradientPaper } from '../style/DashboardCard.styled';
+import { MainCardContainer } from '../style/DashboardCard.styled';
+import { ChartTitle } from '@features/dashboard-card/component/ChartTitle';
 
 interface Props {
   isLoading: boolean;
@@ -20,11 +21,11 @@ export const ThisWeekEventEachRegionStatistic: React.FC<Props> = ({
   ];
 
   return (
-    <GradientPaper p="md" withBorder>
-      <ChartTitle order={4}>지역별 버스킹 공연 수</ChartTitle>
-      <Text size="sm" c="dimmed" mb="md">
-        이번 주 지역별 버스킹 공연 현황
-      </Text>
+    <MainCardContainer p="md" withBorder>
+      <ChartTitle
+        title="지역별 버스킹 공연 수"
+        description="이번 주 지역별 버스킹 공연 현황"
+      />
 
       {isLoading ? (
         <Skeleton height={250} radius="md" />
@@ -37,6 +38,6 @@ export const ThisWeekEventEachRegionStatistic: React.FC<Props> = ({
           height={250}
         />
       )}
-    </GradientPaper>
+    </MainCardContainer>
   );
 };

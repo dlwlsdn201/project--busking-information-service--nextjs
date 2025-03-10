@@ -1,6 +1,7 @@
-import { Skeleton, Text } from '@mantine/core';
-import { ChartTitle, GradientPaper } from '../style/DashboardCard.styled';
+import { Skeleton } from '@mantine/core';
+import { MainCardContainer } from '../style/DashboardCard.styled';
 import { AreaLineChart } from '@shared/ui/chart';
+import { ChartTitle } from '@features/dashboard-card/component/ChartTitle';
 
 interface Props {
   isLoading: boolean;
@@ -20,11 +21,11 @@ export const ThisWeekEventEachRegionStatistic: React.FC<Props> = ({
   ];
 
   return (
-    <GradientPaper p="md" withBorder>
-      <ChartTitle order={4}>일일 접속자 수 현황</ChartTitle>
-      <Text size="sm" c="dimmed" mb="md">
-        최근 7일간의 일별 방문자 수
-      </Text>
+    <MainCardContainer p="md" withBorder>
+      <ChartTitle
+        title="일일 접속자 수 현황"
+        description="최근 7일간의 일별 방문자 수"
+      />
 
       {isLoading ? (
         <Skeleton height={250} radius="md" />
@@ -37,6 +38,6 @@ export const ThisWeekEventEachRegionStatistic: React.FC<Props> = ({
           height={250}
         />
       )}
-    </GradientPaper>
+    </MainCardContainer>
   );
 };

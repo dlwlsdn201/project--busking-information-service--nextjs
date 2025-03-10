@@ -1,3 +1,4 @@
+import { STANDARD_GAP } from '@app/config/style';
 import styled from 'styled-components';
 
 const FlexLayoutContainer = styled.div<{
@@ -6,6 +7,7 @@ const FlexLayoutContainer = styled.div<{
   display: flex;
   width: 100%;
   height: 100%;
+  row-gap: ${STANDARD_GAP.md};
   flex-direction: ${(props) =>
     props.$direction === 'vertical' ? 'column' : 'row'};
 `;

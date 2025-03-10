@@ -6,7 +6,10 @@ export const ChartContainer = styled(Box)<{
   height?: number;
   children: React.ReactNode;
   style?: CSSProperties;
+  className?: string;
 }>`
-  height: ${(props) => props.height || 300}px;
+  height: ${(props) => (props?.height ? `${props?.height}px` : '100%')};
   width: 100%;
+  display: flex;
+  justify-content: center;
 `;

@@ -2,15 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import Head from 'next/head';
-import {
-  Box,
-  Title,
-  Text,
-  //   RingProgress,
-  Skeleton,
-  SimpleGrid,
-} from '@mantine/core';
+import { Skeleton, SimpleGrid } from '@mantine/core';
 import styled from 'styled-components';
 import { FlexLayout } from '@shared/ui/layout/FlexLayout';
 import {
@@ -23,12 +15,16 @@ import { DailyVisitSiteStatistic } from '@features/dashboard-card/ui/DailyVisitS
 import { ThisWeekEventEachRegionStatistic } from '@features/dashboard-card/ui/ThisWeekEventEachRegionStatistic';
 import { EachRegionBuskerStatistic } from '@features/dashboard-card/ui/EachRegionBuskerStatistic';
 import { LatestPosts } from '@features/dashboard-card/ui/LatestPosts';
+import { PageTitle } from '@shared/ui/common';
 
-const StatsContainer = styled.div`
+const StatisticSection = styled.div<{
+  height?: `${number}%`;
+}>`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(10rem, 1fr));
+  height: ${(props) => props?.height ?? 'auto'};
 `;
 
 export const DashboardWidget: NextPage = () => {
@@ -52,28 +48,20 @@ export const DashboardWidget: NextPage = () => {
 
   return (
     <FlexLayout direction="vertical">
-      <Head>
-        <title>대시보드 | 버스커스팟</title>
-      </Head>
-
-      <Box className="flex justify-between items-center mb-6">
-        <Box>
-          <Title order={2} className="text-indigo-700 mb-1">
-            대시보드
-          </Title>
-          <Text>버스킹 생태계 현황을 한눈에 파악하세요</Text>
-        </Box>
-      </Box>
+      <PageTitle
+        title="대시보드"
+        description="버스킹 생태계 현황을 한눈에 파악하세요"
+      />
       {/* 통계 카드 그리드 */}
-      <StatsContainer>
+      <StatisticSection>
         {isLoading
           ? [...Array(compareCharts.length)].map((_, i) => (
               <Skeleton key={i} height={140} radius="md" />
             ))
           : compareCharts}
-      </StatsContainer>
+      </StatisticSection>
       {/* 차트 영역 */}
-      <SimpleGrid cols={2} spacing="lg">
+      <SimpleGrid cols={2} verticalSpacing="lg" spacing="lg" h={'100%'}>
         {/* 일일 접속자 수 현황 차트 */}
         <DailyVisitSiteStatistic isLoading={isLoading} />
         {/* 지역별 주간 버스킹 공연 수 현황 차트 */}

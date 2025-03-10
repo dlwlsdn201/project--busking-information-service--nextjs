@@ -1,16 +1,17 @@
 import { Badge, Box, Skeleton, Text } from '@mantine/core';
-import { ChartTitle, GradientPaper } from '../style/DashboardCard.styled';
+import { MainCardContainer } from '../style/DashboardCard.styled';
+import { ChartTitle } from '@features/dashboard-card/component/ChartTitle';
 
 interface Props {
   isLoading: boolean;
 }
 export const LatestPosts: React.FC<Props> = ({ isLoading }) => {
   return (
-    <GradientPaper p="md" withBorder>
-      <ChartTitle order={4}>최근 업데이트</ChartTitle>
-      <Text size="sm" c="dimmed" mb="md">
-        서비스 공지사항 및 업데이트 내역
-      </Text>
+    <MainCardContainer p="md" withBorder>
+      <ChartTitle
+        title="최근 업데이트"
+        description="서비스 공지사항 및 업데이트 내역"
+      />
 
       {isLoading ? (
         <Skeleton height={250} radius="md" />
@@ -42,6 +43,11 @@ export const LatestPosts: React.FC<Props> = ({ isLoading }) => {
               title: '버스커를 위한 음향 장비 대여 서비스 오픈',
               badge: '신규',
             },
+            {
+              date: '2025-03-06',
+              title: '태화강 국가정원 중앙광장 버스킹 공연 공식 허가 결정',
+              badge: '신규',
+            },
           ].map((item, index) => (
             <Box
               key={index}
@@ -70,6 +76,6 @@ export const LatestPosts: React.FC<Props> = ({ isLoading }) => {
           ))}
         </Box>
       )}
-    </GradientPaper>
+    </MainCardContainer>
   );
 };

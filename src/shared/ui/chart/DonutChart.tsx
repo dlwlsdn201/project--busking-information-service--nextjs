@@ -5,16 +5,20 @@ import { Text } from '@mantine/core';
 import { ChartContainer } from './style/Chart.styled';
 
 // 도넛 차트 컴포넌트 (파이 차트 대체)
-interface PieChartProps {
-  data: Array<{ id: string; value: number; label: string }>;
+interface SharedDonutChartProps {
+  data: Array<{ id: string; value: number; label: string; color: string }>;
+  size: number;
   height?: number;
   title?: string;
+  labelsType?: 'value' | 'percent';
 }
 
-export const PieChart: React.FC<PieChartProps> = ({
+export const SharedDonutChart: React.FC<SharedDonutChartProps> = ({
   data,
+  size,
   height = 300,
   title,
+  labelsType = 'value',
 }) => {
   if (!data || data.length === 0) {
     return (
@@ -35,23 +39,33 @@ export const PieChart: React.FC<PieChartProps> = ({
   const chartData = data.map((item) => ({
     name: item.label,
     value: item.value,
-    color: '', // Mantine이 자동으로 색상 할당
+    color: item.color, // Mantine이 자동으로 색상 할당
   }));
 
   return (
-    <ChartContainer height={height}>
+    <ChartContainer className="donutChart-container" height={height}>
       {title && (
         <Text size="sm" mb="xs">
           {title}
         </Text>
       )}
       <DonutChart
+        size={size}
         h={title ? height - 30 : height}
         data={chartData}
         withLabels
         withTooltip
-        thickness={30}
-        tooltipDataSource="segment"
+        thickness={40}
+        tooltipDataSource="all"
+        labelsType={labelsType}
+        tooltipProps={{
+          offset: 50,
+          animationDuration: 2,
+          animationEasing: 'linear',
+          isAnimationActive: true,
+          position: { x: 100, y: -150 },
+        }}
+        mx="auto"
         chartLabel={`총 ${data.reduce((acc, curr) => acc + curr.value, 0)}명`}
       />
     </ChartContainer>
