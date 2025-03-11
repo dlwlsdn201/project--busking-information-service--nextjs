@@ -28,6 +28,7 @@ const CardWrapper = styled(Paper)<PaperProps & { children: React.ReactNode }>`
   padding: 1rem;
   width: 100%;
   height: 100%;
+  max-height: 8rem;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -84,13 +85,12 @@ export const DashboardCard: React.FC<DashboardCardProps> = ({
 
   return (
     <CardWrapper withBorder radius="md" p="md">
-      <Group gap={'xl'}>
+      <Group gap={'md'}>
         <Box>
           <TitleText>{title}</TitleText>
           <ValueText>{value}</ValueText>
           <DescriptionText positive={isPositive}>{description}</DescriptionText>
         </Box>
-
         <Box>
           {progress ? (
             <RingProgress

@@ -16,7 +16,7 @@ export const LatestPosts: React.FC<Props> = ({ isLoading }) => {
       {isLoading ? (
         <Skeleton height={250} radius="md" />
       ) : (
-        <Box className="space-y-3">
+        <Box className="space-y-1">
           {[
             {
               date: '2025-03-05',
@@ -32,16 +32,6 @@ export const LatestPosts: React.FC<Props> = ({ isLoading }) => {
               date: '2025-02-28',
               title: '3월 버스킹 공연 홍보 행사 안내',
               badge: '이벤트',
-            },
-            {
-              date: '2025-02-25',
-              title: '대전 시청 앞 광장 버스킹 장소 운영 종료',
-              badge: '종료',
-            },
-            {
-              date: '2025-02-20',
-              title: '버스커를 위한 음향 장비 대여 서비스 오픈',
-              badge: '신규',
             },
             {
               date: '2025-03-06',

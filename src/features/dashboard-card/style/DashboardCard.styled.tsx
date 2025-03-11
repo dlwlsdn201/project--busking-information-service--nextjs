@@ -9,6 +9,8 @@ export const MainCardContainer = styled(Paper)<
   display: flex;
   flex-flow: column nowrap;
   gap: 1rem;
+  height: 100%;
+  max-height: 22rem;
 `;
 export const StyledChartTitle = styled(Title)`
   color: #4c6ef5;

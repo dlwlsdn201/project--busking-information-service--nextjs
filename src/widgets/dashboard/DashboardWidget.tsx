@@ -17,13 +17,23 @@ import { EachRegionBuskerStatistic } from '@features/dashboard-card/ui/EachRegio
 import { LatestPosts } from '@features/dashboard-card/ui/LatestPosts';
 import { PageTitle } from '@shared/ui/common';
 
-const StatisticSection = styled.div<{
+const BriefStatisticSection = styled.div<{
   height?: `${number}%`;
 }>`
   display: grid;
   grid-gap: 1.25rem;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(auto, 1fr));
+  height: ${(props) => props?.height ?? 'auto'};
+`;
+
+const MainStatisticSection = styled.div<{
+  height?: `${number}%`;
+}>`
+  display: grid;
+  grid-gap: 1.25rem;
+  grid-template-columns: 2fr 2fr;
+  grid-template-rows: 1fr;
   height: ${(props) => props?.height ?? 'auto'};
 `;
 
@@ -53,15 +63,15 @@ export const DashboardWidget: NextPage = () => {
         description="버스킹 생태계 현황을 한눈에 파악하세요"
       />
       {/* 통계 카드 그리드 */}
-      <StatisticSection>
+      <BriefStatisticSection>
         {isLoading
           ? [...Array(compareCharts.length)].map((_, i) => (
               <Skeleton key={i} height={140} radius="md" />
             ))
           : compareCharts}
-      </StatisticSection>
+      </BriefStatisticSection>
       {/* 차트 영역 */}
-      <SimpleGrid cols={2} verticalSpacing="lg" spacing="lg" h={'100%'}>
+      <MainStatisticSection>
         {/* 일일 접속자 수 현황 차트 */}
         <DailyVisitSiteStatistic isLoading={isLoading} />
         {/* 지역별 주간 버스킹 공연 수 현황 차트 */}
@@ -70,7 +80,7 @@ export const DashboardWidget: NextPage = () => {
         <EachRegionBuskerStatistic isLoading={isLoading} />
         {/* 최근 공지사항 및 업데이트 */}
         <LatestPosts isLoading={isLoading} />
-      </SimpleGrid>
+      </MainStatisticSection>
     </FlexLayout>
   );
 };
