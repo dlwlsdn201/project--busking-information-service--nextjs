@@ -33,12 +33,19 @@ export const EachRegionBuskerStatistic: React.FC<Props> = ({ isLoading }) => {
         description="현재 활동 중인 버스커 지역별 분포"
       />
       {isLoading ? (
-        <Skeleton height={250} radius="md" />
+        <Skeleton
+          height={containerWidth ? containerWidth / 3 : 250}
+          radius="md"
+        />
       ) : (
         <ChartWrapper>
           <SharedDonutChart
-            height={containerWidth ? containerWidth / 3 : 150}
-            size={containerWidth ? containerWidth / 3 : 200}
+            // height={containerWidth ? containerWidth *0.5 : 200}
+            size={
+              containerWidth && containerWidth < 200
+                ? containerWidth * 0.35
+                : 200
+            }
             labelsType="percent"
             data={SAMPLE_buskerData}
           />

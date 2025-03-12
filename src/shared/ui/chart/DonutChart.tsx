@@ -16,7 +16,7 @@ interface SharedDonutChartProps {
 export const SharedDonutChart: React.FC<SharedDonutChartProps> = ({
   data,
   size,
-  height = 300,
+  height = 250,
   title,
   labelsType = 'value',
 }) => {
@@ -51,11 +51,11 @@ export const SharedDonutChart: React.FC<SharedDonutChartProps> = ({
       )}
       <DonutChart
         size={size}
-        h={title ? height - 30 : height}
+        // h={title ? height - 30 : height}
         data={chartData}
         withLabels
         withTooltip
-        thickness={40}
+        thickness={size * 0.2}
         tooltipDataSource="all"
         labelsType={labelsType}
         tooltipProps={{
