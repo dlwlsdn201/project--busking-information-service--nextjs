@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import { Skeleton, SimpleGrid } from '@mantine/core';
+import { Skeleton } from '@mantine/core';
 import styled from 'styled-components';
 import { FlexLayout } from '@shared/ui/layout/FlexLayout';
 import {
@@ -16,15 +16,26 @@ import { ThisWeekEventEachRegionStatistic } from '@features/dashboard-card/ui/Th
 import { EachRegionBuskerStatistic } from '@features/dashboard-card/ui/EachRegionBuskerStatistic';
 import { LatestPosts } from '@features/dashboard-card/ui/LatestPosts';
 import { PageTitle } from '@shared/ui/common';
+import { RESPONSIVE_BREAKPOINTS } from '@app/config/responsive';
 
 const BriefStatisticSection = styled.div<{
   height?: `${number}%`;
 }>`
   display: grid;
   grid-gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(auto, 1fr));
+
+  // 기본적으로 4열 레이아웃 적용(데스크탑)
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
   height: ${(props) => props?.height ?? 'auto'};
+
+  @media (max-width: ${RESPONSIVE_BREAKPOINTS.tablet}px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: ${RESPONSIVE_BREAKPOINTS.mobile}px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const MainStatisticSection = styled.div<{
@@ -32,9 +43,19 @@ const MainStatisticSection = styled.div<{
 }>`
   display: grid;
   grid-gap: 1.25rem;
-  grid-template-columns: 2fr 2fr;
-  grid-template-rows: 1fr;
+
+  // 기본적으로 2열 레이아웃 적용(데스크탑)
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
   height: ${(props) => props?.height ?? 'auto'};
+
+  @media (max-width: ${RESPONSIVE_BREAKPOINTS.tablet}px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: ${RESPONSIVE_BREAKPOINTS.mobile}px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const DashboardWidget: NextPage = () => {

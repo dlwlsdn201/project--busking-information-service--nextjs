@@ -10,6 +10,8 @@ import {
   BoxComponentProps,
 } from '@mantine/core';
 import styled from 'styled-components';
+import { RESPONSIVE_BREAKPOINTS } from '@app/config/responsive';
+import { STANDARD_FONT_SIZES } from '@app/config/font';
 
 interface DashboardCardProps {
   title: string;
@@ -53,24 +55,36 @@ const IconWrapper = styled(Box)<
 `;
 
 const ValueText = styled(Text)`
-  font-size: 2rem;
+  font-size: ${STANDARD_FONT_SIZES.xl};
   font-weight: 700;
   line-height: 1.2;
+
+  @media (max-width: ${RESPONSIVE_BREAKPOINTS.mobile}px) {
+    font-size: ${STANDARD_FONT_SIZES.lg};
+  }
 `;
 
 const TitleText = styled(Text)`
-  font-size: 1.25rem;
+  font-size: ${STANDARD_FONT_SIZES.md};
   color: #6c757d;
   margin-bottom: 0.5rem;
+
+  @media (max-width: ${RESPONSIVE_BREAKPOINTS.mobile}px) {
+    font-size: ${STANDARD_FONT_SIZES.md};
+  }
 `;
 
 const DescriptionText = styled(Text)<{
   positive?: boolean;
   children: React.ReactNode;
 }>`
-  font-size: 1rem;
-  color: ${(props) => (props.positive ? '#40c057' : '#ff6b6b')};
+  font-size: ${STANDARD_FONT_SIZES.sm};
+  color: ${(props) => (props.positive ? '#39b14f' : '#ff6b6b')};
   font-weight: 500;
+
+  @media (max-width: ${RESPONSIVE_BREAKPOINTS.mobile}px) {
+    font-size: ${STANDARD_FONT_SIZES.sm};
+  }
 `;
 
 export const DashboardCard: React.FC<DashboardCardProps> = ({
