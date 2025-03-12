@@ -11,6 +11,7 @@ export const MainCardContainer = styled(Paper)<
   gap: 1rem;
   height: 100%;
   max-height: 22rem;
+  min-width: -webkit-fill-available;
 `;
 export const StyledChartTitle = styled(Title)`
   color: #4c6ef5;

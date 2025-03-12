@@ -3,7 +3,7 @@
 import { NavLink } from '@mantine/core';
 import { usePathname } from 'next/navigation';
 import { ROUTE_LIST } from '@shared/config/Navigation';
-import { NavigationContainer } from './Navigation.styled';
+import { NavigationContainer, StyledAside } from './Navigation.styled';
 
 export const Navigation = ({}): React.ReactElement => {
   const currentPath = usePathname();
@@ -24,5 +24,9 @@ export const Navigation = ({}): React.ReactElement => {
     );
   });
 
-  return <NavigationContainer>{navigationItems}</NavigationContainer>;
+  return (
+    <StyledAside>
+      <NavigationContainer>{navigationItems}</NavigationContainer>;
+    </StyledAside>
+  );
 };
