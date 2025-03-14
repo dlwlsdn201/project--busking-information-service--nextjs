@@ -5,6 +5,7 @@ import ConfigProviders from './config/ConfigProviders';
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import './globals.css';
+import { PagePaddingLayout } from '@shared/ui/layout';
 
 // export const metadata = {
 //   title: 'Next.js',
@@ -28,7 +29,7 @@ export default function RootLayout({
             }}
           >
             <Navigation />
-            {children}
+            <PagePaddingLayout>{children}</PagePaddingLayout>
           </div>
         </ConfigProviders>
       </body>

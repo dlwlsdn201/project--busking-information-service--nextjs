@@ -78,11 +78,7 @@ export const DashboardWidget: NextPage = () => {
   ];
 
   return (
-    <FlexLayout direction="vertical">
-      <PageTitle
-        title="대시보드"
-        description="버스킹 생태계 현황을 한눈에 파악하세요"
-      />
+    <>
       {/* 통계 카드 그리드 */}
       <BriefStatisticSection>
         {isLoading
@@ -102,6 +98,6 @@ export const DashboardWidget: NextPage = () => {
         {/* 최근 공지사항 및 업데이트 */}
         <LatestPosts isLoading={isLoading} />
       </MainStatisticSection>
-    </FlexLayout>
+    </>
   );
 };
