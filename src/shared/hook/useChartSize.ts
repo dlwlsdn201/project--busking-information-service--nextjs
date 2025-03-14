@@ -6,11 +6,13 @@ export const useChartSize = ({
   containerClassName: string;
 }) => {
   const [containerWidth, setContainerWidth] = useState<number>(0);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number | undefined>();
+
+  const element = document?.querySelector(`.${containerClassName}`);
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      if (window) setWindowWidth(window?.innerWidth);
     };
 
     window.addEventListener('resize', handleResize);
@@ -18,8 +20,6 @@ export const useChartSize = ({
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  const element = document.querySelector(`.${containerClassName}`);
 
   useEffect(() => {
     if (element) {

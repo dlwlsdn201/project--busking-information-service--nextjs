@@ -75,11 +75,11 @@ const TitleText = styled(Text)`
 `;
 
 const DescriptionText = styled(Text)<{
-  positive?: boolean;
+  $positive?: boolean;
   children: React.ReactNode;
 }>`
   font-size: ${STANDARD_FONT_SIZES.sm};
-  color: ${(props) => (props.positive ? '#39b14f' : '#ff6b6b')};
+  color: ${(props) => (props?.$positive ? '#39b14f' : '#ff6b6b')};
   font-weight: 500;
 
   @media (max-width: ${RESPONSIVE_BREAKPOINTS.mobile}px) {
@@ -103,7 +103,9 @@ export const DashboardCard: React.FC<DashboardCardProps> = ({
         <Box>
           <TitleText>{title}</TitleText>
           <ValueText>{value}</ValueText>
-          <DescriptionText positive={isPositive}>{description}</DescriptionText>
+          <DescriptionText $positive={isPositive}>
+            {description}
+          </DescriptionText>
         </Box>
         <Box>
           {progress ? (

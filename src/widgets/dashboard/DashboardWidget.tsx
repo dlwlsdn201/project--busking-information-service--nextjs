@@ -71,10 +71,10 @@ export const DashboardWidget: NextPage = () => {
   }, []);
 
   const compareCharts: React.ReactNode[] = [
-    <EnrollBuskerStatistic />,
-    <EnrollSpotStatistic />,
-    <ThisWeekEventStatistic />,
-    <ThisMonthVisitSiteStatistic />,
+    <EnrollBuskerStatistic key="EnrollBusker" />,
+    <EnrollSpotStatistic key="EnrollSpot" />,
+    <ThisWeekEventStatistic key="ThisWeekEvent" />,
+    <ThisMonthVisitSiteStatistic key="ThisMonthVisitSite" />,
   ];
 
   return (
