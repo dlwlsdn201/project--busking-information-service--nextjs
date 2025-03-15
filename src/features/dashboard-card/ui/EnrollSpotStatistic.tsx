@@ -3,7 +3,7 @@ import { TestIcon } from '@shared/assets/icons/common';
 import { IconProvider } from '@shared/assets/icons/IconProvider';
 export const EnrollSpotStatistic = () => {
   const SAMPLE_DATA = {
-    title: '버스킹 장소',
+    title: '버스킹 스팟 수',
     value: '243',
     description: '지난 달 대비 +5%',
     icon: <IconProvider icon={TestIcon} size={28} />,

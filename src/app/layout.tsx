@@ -6,6 +6,7 @@ import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import './globals.css';
 import { PagePaddingLayout } from '@shared/ui/layout';
+import { ThemeToggleButton } from '@shared/ui/common';
 
 // export const metadata = {
 //   title: 'Next.js',
@@ -24,12 +25,14 @@ export default function RootLayout({
           <div
             id="container"
             style={{
+              position: 'relative',
               display: 'flex',
               flexFlow: 'row nowrap',
             }}
           >
             <Navigation />
             <PagePaddingLayout>{children}</PagePaddingLayout>
+            <ThemeToggleButton />
           </div>
         </ConfigProviders>
       </body>

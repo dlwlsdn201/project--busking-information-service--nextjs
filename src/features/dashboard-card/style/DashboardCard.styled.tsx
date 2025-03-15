@@ -5,7 +5,6 @@ export const MainCardContainer = styled(Paper)<
   PaperProps & { children: React.ReactNode }
 >`
   border-radius: 0.75rem;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   display: flex;
   flex-flow: column nowrap;
   gap: 1rem;
