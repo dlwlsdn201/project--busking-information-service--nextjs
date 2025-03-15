@@ -22,7 +22,7 @@
     "noUnusedParameters": true, // 사용되지 않은 파라미터들 검사
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["/*"],
+      "@": ["/*"],
       "@features/*": ["features/*"],
       "@entities/*": ["entities/*"],
       "@shared/*": ["shared/*"],
