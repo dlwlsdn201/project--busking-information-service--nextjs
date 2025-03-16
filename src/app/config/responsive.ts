@@ -1,7 +1,8 @@
-// max-width 속성값
+// min-width 속성값 기준
 export const RESPONSIVE_BREAKPOINTS = {
-  mobile: 500,
-  tablet: 1200,
-  laptop: 1440,
-  desktop: 1920,
+  mobile: 320, // xs
+  tablet: 768, // sm
+  laptop: 1024, // md
+  desktop: 1440, // lg
+  'desktop-lg': 1920, // xl
 };
