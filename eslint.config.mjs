@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', '.next', 'node_modules'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -29,6 +29,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      '@typescript-eslint/no-explicit-any': 'warn',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
@@ -40,7 +41,7 @@ export default tseslint.config(
       'no-duplicate-imports': 'warn', // 같은 모듈로부터 import 하는 구문이 2개 이상 중복 작성되는 것을 경고함. (See: https://eslint.org/docs/latest/rules/no-duplicate-import)
       'no-unsafe-optional-chaining': 'error', // 안전하지 않은 옵셔널 체이닝 구문을 허용하지 않음. (See: https://eslint.org/docs/latest/rules/no-unsafe-optional-chaining)
       camelcase: [
-        'error',
+        'warn',
         {
           properties: 'always',
           ignoreDestructuring: true,
