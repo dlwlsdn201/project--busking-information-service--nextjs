@@ -14,13 +14,13 @@ import {
 } from '@tabler/icons-react';
 import { styled } from 'styled-components';
 
-const StyledFilterBar = styled.div<{ isDark: boolean }>`
-  background-color: ${(props) => (props.isDark ? '#2C2E33' : 'white')};
+const StyledFilterBar = styled.div<{ $isDark: boolean }>`
+  background-color: ${(props) => (props.$isDark ? '#2C2E33' : 'white')};
   border-radius: 12px;
   padding: 1rem;
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, ${(props) => (props.isDark ? '0.3' : '0.1')}),
-    0 2px 4px -1px rgba(0, 0, 0, ${(props) => (props.isDark ? '0.2' : '0.06')});
+    0 4px 6px -1px rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.3' : '0.1')}),
+    0 2px 4px -1px rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.2' : '0.06')});
   margin-bottom: 1.5rem;
 `;
 
@@ -45,10 +45,10 @@ export const PublicizeFilterBar = ({
   const isDark = colorScheme === 'dark';
 
   return (
-    <StyledFilterBar isDark={isDark}>
+    <StyledFilterBar $isDark={isDark}>
       <div className="flex flex-col md:flex-row gap-3">
         <TextInput
-          icon={<IconSearch size={18} />}
+          leftSection={<IconSearch size={18} />}
           placeholder="공연명, 아티스트 검색"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -57,7 +57,7 @@ export const PublicizeFilterBar = ({
         />
 
         <Select
-          icon={<IconMapPin size={18} />}
+          leftSection={<IconMapPin size={18} />}
           placeholder="지역 선택"
           data={REGIONS}
           value={selectedRegion}
@@ -68,7 +68,7 @@ export const PublicizeFilterBar = ({
         />
 
         <Select
-          icon={<IconCategory size={18} />}
+          leftSection={<IconCategory size={18} />}
           placeholder="장르 선택"
           data={BUSKING_CATEGORIES}
           value={selectedCategory}
@@ -79,7 +79,7 @@ export const PublicizeFilterBar = ({
         />
 
         <Button
-          leftIcon={<IconFilter size={18} />}
+          leftSection={<IconFilter size={18} />}
           variant="light"
           color="grape"
           radius="md"

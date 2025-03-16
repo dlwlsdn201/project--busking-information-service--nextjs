@@ -1,7 +1,9 @@
 export const STANDARD_PADDING = {
-  sm: '0.75rem',
-  md: '1rem',
-  lg: '1.5rem',
+  xs: '0.75rem',
+  sm: '1rem',
+  md: '1.5rem',
+  lg: '3rem',
+  xl: '4rem',
 };
 
 export const STANDARD_GAP = {

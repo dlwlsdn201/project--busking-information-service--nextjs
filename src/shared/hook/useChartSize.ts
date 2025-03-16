@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 
 export const useChartSize = ({
@@ -7,8 +9,6 @@ export const useChartSize = ({
 }) => {
   const [containerWidth, setContainerWidth] = useState<number>(0);
   const [windowWidth, setWindowWidth] = useState<number | undefined>();
-
-  const element = document?.querySelector(`.${containerClassName}`);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,9 +22,11 @@ export const useChartSize = ({
   }, []);
 
   useEffect(() => {
+    const element = document?.querySelector(`.${containerClassName}`);
+
     if (element) {
       const resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
+        for (const entry of entries) {
           setContainerWidth(entry.contentRect.width);
         }
       });
@@ -34,7 +36,7 @@ export const useChartSize = ({
         resizeObserver.unobserve(element);
       };
     }
-  }, [containerClassName, windowWidth, element]);
+  }, [containerClassName, windowWidth]);
 
   return { containerWidth };
 };

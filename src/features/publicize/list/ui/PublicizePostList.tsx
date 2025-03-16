@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Grid, Pagination, Center, Loader, Text } from '@mantine/core';
 import { styled } from 'styled-components';
 import { usePosts } from '@entities/publicize/post/hook/usePosts';
-import { FeedCard } from '@entities/publicize/post/ui/PostCard';
+import { PostCard } from '@entities/publicize/post/ui/PostCard';
 
 const StyledGrid = styled(Grid)`
   margin-top: 2rem;
@@ -52,10 +52,10 @@ export const PublicizePostList = ({
   if (posts.length === 0) {
     return (
       <NoResultsContainer>
-        <Text size="xl" weight={500} className="mb-2">
+        <Text size="xl" className="mb-2">
           검색 결과가 없습니다
         </Text>
-        <Text size="sm" color="dimmed">
+        <Text size="sm" c="dimmed">
           다른 검색어나 필터로 시도해보세요
         </Text>
       </NoResultsContainer>
@@ -64,18 +64,15 @@ export const PublicizePostList = ({
 
   return (
     <>
-      <StyledGrid>
+      <StyledGrid gutter="lg">
         {posts.map((post) => (
           <Grid.Col
+            span={{ base: 12, sm: 6, md: 4, lg: 3 }} //
             key={post.id}
-            x={12}
-            sm={6}
-            md={4}
-            lg={4}
-            xl={3}
+            h={'auto'}
             className="mb-4"
           >
-            <FeedCard post={post} />
+            <PostCard post={post} />
           </Grid.Col>
         ))}
       </StyledGrid>

@@ -1,8 +1,7 @@
 // widgets/charts/index.tsx
 import React from 'react';
 import { BarChart as MantineBarChart } from '@mantine/charts';
-import { Box, Text } from '@mantine/core';
-import styled from 'styled-components';
+import { Text } from '@mantine/core';
 import { ChartContainer } from './style/Chart.styled';
 
 interface ChartProps {
