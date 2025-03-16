@@ -3,15 +3,15 @@
 import { createTheme, MantineProvider } from '@mantine/core';
 import { RESPONSIVE_BREAKPOINTS } from '@app/config/responsive';
 
-export const convertPxToRem = (px: number): `${number}rem` =>
+const convertPxToRem = (px: number): `${number}rem` =>
   (px / 16 + 'rem') as `${number}rem`;
 
 // Mantine 다크모드/라이트모드 전환을 위한 예시
-export default function ConfigProviders({
+export const MantineProviders = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   const theme = createTheme({
     breakpoints: {
       xs: convertPxToRem(RESPONSIVE_BREAKPOINTS.mobile),
@@ -27,4 +27,4 @@ export default function ConfigProviders({
       {children}
     </MantineProvider>
   );
-}
+};
