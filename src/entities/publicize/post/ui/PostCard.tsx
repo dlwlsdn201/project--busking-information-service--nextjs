@@ -17,7 +17,7 @@ import Link from 'next/link';
 import { Post } from '@entities/publicize/post/model/types';
 
 const StyledCard = styled(Card)<
-  CardProps & { isDark: boolean; children: React.ReactNode }
+  CardProps & { $isDark: boolean; children: React.ReactNode }
 >`
   height: 100%;
   display: flex;
@@ -31,7 +31,7 @@ const StyledCard = styled(Card)<
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 20px
-      rgba(0, 0, 0, ${(props) => (props.isDark ? '0.4' : '0.1')});
+      rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.4' : '0.1')});
   }
 `;
 const CardImageContainer = styled.div`
@@ -72,7 +72,7 @@ export const PostCard = ({ post }: PostCardProps) => {
   };
 
   return (
-    <StyledCard padding="lg" radius="md" withBorder isDark={isDark}>
+    <StyledCard padding="lg" radius="md" withBorder $isDark={isDark}>
       <CardImageContainer>
         {dDayElement(post.date)}
         <Image

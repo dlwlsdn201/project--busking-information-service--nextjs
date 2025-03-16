@@ -14,13 +14,13 @@ import {
 } from '@tabler/icons-react';
 import { styled } from 'styled-components';
 
-const StyledFilterBar = styled.div<{ isDark: boolean }>`
-  background-color: ${(props) => (props.isDark ? '#2C2E33' : 'white')};
+const StyledFilterBar = styled.div<{ $isDark: boolean }>`
+  background-color: ${(props) => (props.$isDark ? '#2C2E33' : 'white')};
   border-radius: 12px;
   padding: 1rem;
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, ${(props) => (props.isDark ? '0.3' : '0.1')}),
-    0 2px 4px -1px rgba(0, 0, 0, ${(props) => (props.isDark ? '0.2' : '0.06')});
+    0 4px 6px -1px rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.3' : '0.1')}),
+    0 2px 4px -1px rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.2' : '0.06')});
   margin-bottom: 1.5rem;
 `;
 
@@ -45,7 +45,7 @@ export const PublicizeFilterBar = ({
   const isDark = colorScheme === 'dark';
 
   return (
-    <StyledFilterBar isDark={isDark}>
+    <StyledFilterBar $isDark={isDark}>
       <div className="flex flex-col md:flex-row gap-3">
         <TextInput
           leftSection={<IconSearch size={18} />}
