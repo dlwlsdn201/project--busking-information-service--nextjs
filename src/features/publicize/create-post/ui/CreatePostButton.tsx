@@ -15,6 +15,7 @@ export const CreatePostButton = () => {
         radius="md"
         size="md"
         onClick={() => setOpened(true)}
+        styles={{ label: { fontSize: STANDARD_FONT_SIZES.lg } }}
         className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 transition-all duration-300"
       >
         신규 등록

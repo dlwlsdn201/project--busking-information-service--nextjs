@@ -4,8 +4,36 @@ import { styled } from 'styled-components';
 import { usePosts } from '@entities/publicize/post/hook/usePosts';
 import { PostCard } from '@entities/publicize/post/ui/PostCard';
 
+const PostListContainer = styled.div`
+  height: 80%;
+  margin-top: 0.5rem;
+`;
+
 const StyledGrid = styled(Grid)`
-  margin-top: 2rem;
+  overflow-y: auto;
+  height: calc(100% - 0.5rem); // 상단 여백과 필터바 높이를 고려한 값
+  padding-right: 1rem;
+  position: relative;
+
+  // 스크롤바 스타일링
+  &::-webkit-scrollbar {
+    width: 0.625rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1ea;
+    border-radius: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #3b5bdb;
+    border-radius: 0.25rem;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    cursor: pointer;
+  }
 `;
 
 const NoResultsContainer = styled.div`
@@ -63,8 +91,8 @@ export const PublicizePostList = ({
   }
 
   return (
-    <>
-      <StyledGrid gutter="lg">
+    <PostListContainer>
+      <StyledGrid gutter="lg" m={0}>
         {posts.map((post) => (
           <Grid.Col
             span={{ base: 12, sm: 6, md: 4, lg: 3 }} //
@@ -89,6 +117,6 @@ export const PublicizePostList = ({
           />
         </Center>
       )}
-    </>
+    </PostListContainer>
   );
 };

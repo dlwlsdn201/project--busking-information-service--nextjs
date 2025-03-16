@@ -10,6 +10,7 @@ const FlexLayoutContainer = styled.div<{
   row-gap: ${STANDARD_GAP.md};
   flex-direction: ${(props) =>
     props.$direction === 'vertical' ? 'column' : 'row'};
+  overflow-y: hidden;
 `;
 
 export const FlexLayout = ({

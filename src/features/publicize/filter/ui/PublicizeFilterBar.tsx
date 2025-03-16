@@ -13,15 +13,16 @@ import {
   IconCategory,
 } from '@tabler/icons-react';
 import { styled } from 'styled-components';
+import { STANDARD_FONT_SIZES } from '../../../../app/config/font';
 
 const StyledFilterBar = styled.div<{ $isDark: boolean }>`
   background-color: ${(props) => (props.$isDark ? '#2C2E33' : 'white')};
+  max-height: 10%;
   border-radius: 12px;
   padding: 1rem;
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.3' : '0.1')}),
     0 2px 4px -1px rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.2' : '0.06')});
-  margin-bottom: 1.5rem;
 `;
 
 interface FeedFilterBarProps {
@@ -54,6 +55,7 @@ export const PublicizeFilterBar = ({
           onChange={(e) => setSearchQuery(e.target.value)}
           className="flex-1"
           radius="md"
+          size="lg"
         />
 
         <Select
@@ -65,6 +67,7 @@ export const PublicizeFilterBar = ({
           clearable
           className="w-full md:w-40"
           radius="md"
+          size="lg"
         />
 
         <Select
@@ -76,6 +79,7 @@ export const PublicizeFilterBar = ({
           clearable
           className="w-full md:w-40"
           radius="md"
+          size="lg"
         />
 
         <Button
@@ -89,6 +93,8 @@ export const PublicizeFilterBar = ({
             setSearchQuery('');
           }}
           className="whitespace-nowrap"
+          size="lg"
+          styles={{ label: { fontSize: STANDARD_FONT_SIZES.lg } }}
         >
           필터 초기화
         </Button>
