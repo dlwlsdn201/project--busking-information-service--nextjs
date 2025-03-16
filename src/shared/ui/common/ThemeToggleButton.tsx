@@ -9,10 +9,7 @@ import styled from 'styled-components';
 const StyledActionIcon = styled(ActionIcon)<
   ActionIconProps & { children: React.ReactElement; onClick: () => void }
 >`
-  position: fixed;
-  bottom: 4%;
-  right: 4%;
-  z-index: 1000;
+  position: relative;
 `;
 
 export const ThemeToggleButton: React.FC = () => {
