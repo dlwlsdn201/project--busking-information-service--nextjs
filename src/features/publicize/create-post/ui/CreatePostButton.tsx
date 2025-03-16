@@ -2,6 +2,7 @@ import { Button, Modal } from '@mantine/core';
 import { useState } from 'react';
 import { IconPlus } from '@tabler/icons-react';
 import { CreatePostForm } from '@features/publicize/create-post/ui/CreatePostForm';
+import { STANDARD_FONT_SIZES } from '@app/config/font';
 
 export const CreatePostButton = () => {
   const [opened, setOpened] = useState(false);
@@ -24,7 +25,8 @@ export const CreatePostButton = () => {
         opened={opened}
         centered
         onClose={() => setOpened(false)}
-        title="새 공연 홍보글 작성"
+        title="홍보 신규 작성"
+        styles={{ title: { fontSize: STANDARD_FONT_SIZES.lg } }}
         size="xl"
         padding="xl"
       >

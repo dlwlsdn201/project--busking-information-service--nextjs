@@ -1,29 +1,28 @@
 import { ActionIcon } from '@mantine/core';
-import { TimeInput } from '@mantine/dates';
-import { UseFormReturnType } from '@mantine/form';
+import { TimeInput, TimeInputProps } from '@mantine/dates';
+import { UseFormReturnType } from '@mantine/form/lib/types';
 import { IconClock } from '@tabler/icons-react';
 import React, { useRef } from 'react';
 
-interface SharedTimePickerProps {
-  form?: UseFormReturnType<{
-    title: string;
-    description: string;
-    date: string;
-    time: string;
-    location: string;
-    region: string;
-    category: string;
-    isFree: boolean;
-    image: null;
-  }>;
+interface FormValues {
+  [key: string]: string;
+}
+
+interface SharedTimePickerProps extends Omit<TimeInputProps, 'form'> {
   label: string;
   placeholder?: string;
   withSeconds?: boolean;
   required?: boolean;
+  formInputProps: ReturnType<
+    UseFormReturnType<
+      FormValues,
+      (values: FormValues) => FormValues
+    >['getInputProps']
+  >;
 }
 
 export const SharedTimePicker: React.FC<SharedTimePickerProps> = ({
-  form,
+  formInputProps,
   label,
   placeholder,
   withSeconds = false,
@@ -50,7 +49,7 @@ export const SharedTimePicker: React.FC<SharedTimePickerProps> = ({
       required={required}
       ref={ref}
       rightSection={pickerControl}
-      {...form?.getInputProps('time')}
+      {...formInputProps}
     />
   );
 };

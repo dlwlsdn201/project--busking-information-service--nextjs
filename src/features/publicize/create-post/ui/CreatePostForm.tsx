@@ -31,7 +31,8 @@ export const CreatePostForm = ({ closeModal }: CreatePostFormProps) => {
       title: '',
       description: '',
       date: '',
-      time: '',
+      startTime: '',
+      endTime: '',
       location: '',
       region: '',
       category: '',
@@ -44,7 +45,9 @@ export const CreatePostForm = ({ closeModal }: CreatePostFormProps) => {
       description: (value: string) =>
         value.trim().length < 10 ? '상세 설명은 10자 이상이어야 합니다' : null,
       date: (value: string) => (!value ? '날짜를 선택해주세요' : null),
-      time: (value: string) => (!value ? '시간을 입력해주세요' : null),
+      startTime: (value: string) =>
+        !value ? '시작 시간을 입력해주세요' : null,
+      endTime: (value: string) => (!value ? '종료 시간을 입력해주세요' : null),
       location: (value: string) => (!value ? '장소를 입력해주세요' : null),
       region: (value: string) => (!value ? '지역을 선택해주세요' : null),
       category: (value: string) => (!value ? '장르를 선택해주세요' : null),
@@ -91,7 +94,7 @@ export const CreatePostForm = ({ closeModal }: CreatePostFormProps) => {
           placeholder="HH:MM - HH:MM"
           withSeconds={false}
           required
-          form={form}
+          formInputProps={{ ...form?.getInputProps('startTime') }}
           // {...form.getInputProps('time')}
         />
         <SharedTimePicker
@@ -99,7 +102,7 @@ export const CreatePostForm = ({ closeModal }: CreatePostFormProps) => {
           placeholder="HH:MM - HH:MM"
           withSeconds={false}
           required
-          form={form}
+          formInputProps={{ ...form?.getInputProps('endTime') }}
           // {...form.getInputProps('time')}
         />
       </Group>
