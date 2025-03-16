@@ -42,7 +42,7 @@ export default tseslint.config(
       camelcase: [
         'error',
         {
-          properties: true,
+          properties: 'always',
           ignoreDestructuring: true,
           ignoreImports: true,
         },
