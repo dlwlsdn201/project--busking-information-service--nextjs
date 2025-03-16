@@ -1,13 +1,12 @@
 'use client';
 
 import { Navigation } from '@shared/ui/navigation';
-import ConfigProviders from './config/ConfigProviders';
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
 import './globals.css';
 import { PagePaddingLayout } from '@shared/ui/layout';
-import { ThemeToggleButton } from '@shared/ui/common';
+import ConfigProviders from './config/provider';
 
 // export const metadata = {
 //   title: 'Next.js',
@@ -31,15 +30,10 @@ export default function RootLayout({
         <ConfigProviders>
           <div
             id="container"
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexFlow: 'row nowrap',
-            }}
+            className="h-full relative flex flex-row flex-nowrap"
           >
             <Navigation />
             <PagePaddingLayout>{children}</PagePaddingLayout>
-            <ThemeToggleButton />
           </div>
         </ConfigProviders>
       </body>

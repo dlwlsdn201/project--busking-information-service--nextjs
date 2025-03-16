@@ -8,6 +8,9 @@ const nextConfig = {
   },
 
   env: {},
+  compiler: {
+    styledComponents: true,
+  },
 
   webpack: (config) => {
     return config;

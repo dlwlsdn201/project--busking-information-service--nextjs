@@ -1,4 +1,5 @@
 import { RESPONSIVE_BREAKPOINTS } from '@app/config/responsive';
+import { STANDARD_PADDING } from '@app/config/style';
 import styled from 'styled-components';
 
 export const StyledAside = styled.aside`
@@ -7,12 +8,21 @@ export const StyledAside = styled.aside`
   min-height: 100vh;
 `;
 
-export const NavigationContainer = styled.div`
+export const SidebarContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  padding: ${STANDARD_PADDING.md} ${STANDARD_PADDING.sm};
+  border-right: 1px solid #424242;
+`;
+
+export const NavigationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   height: 100%;
-  padding: 1rem 0.5rem;
 
   @media (max-width: ${RESPONSIVE_BREAKPOINTS.mobile}px) {
     position: fixed;

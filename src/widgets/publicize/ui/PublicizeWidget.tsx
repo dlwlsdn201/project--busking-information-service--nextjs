@@ -1,21 +1,26 @@
 'use client';
 
-import { Container } from '@mantine/core';
+// import { Container } from '@mantine/core';
 import { useState } from 'react';
-import { styled } from 'styled-components';
+// import { styled } from 'styled-components';
 import {
   CreatePostButton,
   PublicizeFilterBar,
   PublicizePostList,
 } from '@features/publicize';
+import styled from 'styled-components';
 
-const StyledContainer = styled(Container)`
-  padding: 2rem 1rem;
-  max-width: 75rem;
+const StyledContainer = styled.div`
+  min-height: 100%;
+`;
 
-  @media (min-width: 768px) {
-    padding: 2rem;
-  }
+const InnerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  row-gap: 0.75em;
+  overflow-x: hidden;
 `;
 
 export const PublicizeWidget = () => {
@@ -24,12 +29,11 @@ export const PublicizeWidget = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className={`min-h-screen`}>
-      <StyledContainer>
-        <div className="flex w-full md:flex-row justify-end items-start md:items-center mb-6">
+    <StyledContainer>
+      <InnerWrapper>
+        <div className="flex w-full max-h-[10%] md:flex-row justify-end items-start md:items-center mb-6">
           <CreatePostButton />
         </div>
-
         <PublicizeFilterBar
           selectedRegion={selectedRegion}
           setSelectedRegion={setSelectedRegion}
@@ -44,7 +48,7 @@ export const PublicizeWidget = () => {
           category={selectedCategory}
           searchQuery={searchQuery}
         />
-      </StyledContainer>
-    </div>
+      </InnerWrapper>
+    </StyledContainer>
   );
 };
