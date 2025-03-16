@@ -14,6 +14,7 @@ import {
 } from '@tabler/icons-react';
 import { styled } from 'styled-components';
 import { STANDARD_FONT_SIZES } from '../../../../app/config/font';
+import { STANDARD_TRANSITION } from '@app/config/style';
 
 const StyledFilterBar = styled.div<{ $isDark: boolean }>`
   background-color: ${(props) => (props.$isDark ? '#2C2E33' : 'white')};
@@ -61,6 +62,12 @@ export const PublicizeFilterBar = ({
         <Select
           leftSection={<IconMapPin size={18} />}
           placeholder="지역 선택"
+          comboboxProps={{
+            transitionProps: {
+              transition: STANDARD_TRANSITION.transition.dropdown,
+              duration: STANDARD_TRANSITION.duration.base,
+            },
+          }}
           data={REGIONS}
           value={selectedRegion}
           onChange={setSelectedRegion}
@@ -73,6 +80,12 @@ export const PublicizeFilterBar = ({
         <Select
           leftSection={<IconCategory size={18} />}
           placeholder="장르 선택"
+          comboboxProps={{
+            transitionProps: {
+              transition: STANDARD_TRANSITION.transition.dropdown,
+              duration: STANDARD_TRANSITION.duration.base,
+            },
+          }}
           data={BUSKING_CATEGORIES}
           value={selectedCategory}
           onChange={setSelectedCategory}
