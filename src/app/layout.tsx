@@ -25,11 +25,7 @@ export default function RootLayout({
         <ConfigProviders>
           <div
             id="container"
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexFlow: 'row nowrap',
-            }}
+            className="h-full relative flex flex-row flex-nowrap"
           >
             <Navigation />
             <PagePaddingLayout>{children}</PagePaddingLayout>
