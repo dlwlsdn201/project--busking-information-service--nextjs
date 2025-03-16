@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const RootPaddingContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: ${STANDARD_PADDING.lg};
+  padding: ${STANDARD_PADDING.md} ${STANDARD_PADDING.lg};
 `;
 
 export const PagePaddingLayout = ({
