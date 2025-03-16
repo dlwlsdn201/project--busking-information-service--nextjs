@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { ROUTE_LIST } from '@shared/config/Navigation';
 import { NavigationContainer, StyledAside } from './Navigation.styled';
 
-export const Navigation = ({}): React.ReactElement => {
+export const Navigation = (): React.ReactElement => {
   const currentPath = usePathname();
 
   const navigationItems = ROUTE_LIST.map((item) => {

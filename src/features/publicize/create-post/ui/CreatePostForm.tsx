@@ -39,15 +39,15 @@ export const CreatePostForm = ({ closeModal }: CreatePostFormProps) => {
       image: null,
     },
     validate: {
-      title: (value) =>
+      title: (value: string) =>
         value.trim().length < 3 ? '제목은 3자 이상이어야 합니다' : null,
-      description: (value) =>
+      description: (value: string) =>
         value.trim().length < 10 ? '상세 설명은 10자 이상이어야 합니다' : null,
-      date: (value) => (!value ? '날짜를 선택해주세요' : null),
-      time: (value) => (!value ? '시간을 입력해주세요' : null),
-      location: (value) => (!value ? '장소를 입력해주세요' : null),
-      region: (value) => (!value ? '지역을 선택해주세요' : null),
-      category: (value) => (!value ? '장르를 선택해주세요' : null),
+      date: (value: string) => (!value ? '날짜를 선택해주세요' : null),
+      time: (value: string) => (!value ? '시간을 입력해주세요' : null),
+      location: (value: string) => (!value ? '장소를 입력해주세요' : null),
+      region: (value: string) => (!value ? '지역을 선택해주세요' : null),
+      category: (value: string) => (!value ? '장르를 선택해주세요' : null),
     },
   });
 
@@ -56,7 +56,7 @@ export const CreatePostForm = ({ closeModal }: CreatePostFormProps) => {
     console.log('Form submitted:', values);
 
     // 성공 시 모달 닫기
-    onSubmitSuccess();
+    closeModal();
   };
 
   return (
