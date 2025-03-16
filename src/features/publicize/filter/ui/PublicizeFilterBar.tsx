@@ -48,7 +48,7 @@ export const PublicizeFilterBar = ({
     <StyledFilterBar isDark={isDark}>
       <div className="flex flex-col md:flex-row gap-3">
         <TextInput
-          icon={<IconSearch size={18} />}
+          leftSection={<IconSearch size={18} />}
           placeholder="공연명, 아티스트 검색"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -57,7 +57,7 @@ export const PublicizeFilterBar = ({
         />
 
         <Select
-          icon={<IconMapPin size={18} />}
+          leftSection={<IconMapPin size={18} />}
           placeholder="지역 선택"
           data={REGIONS}
           value={selectedRegion}
@@ -68,7 +68,7 @@ export const PublicizeFilterBar = ({
         />
 
         <Select
-          icon={<IconCategory size={18} />}
+          leftSection={<IconCategory size={18} />}
           placeholder="장르 선택"
           data={BUSKING_CATEGORIES}
           value={selectedCategory}
@@ -79,7 +79,7 @@ export const PublicizeFilterBar = ({
         />
 
         <Button
-          leftIcon={<IconFilter size={18} />}
+          leftSection={<IconFilter size={18} />}
           variant="light"
           color="grape"
           radius="md"
