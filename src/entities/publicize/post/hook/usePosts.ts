@@ -1,4 +1,5 @@
 import { Post } from '@entities/publicize/post/model/types';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
 interface UsePostsProps {
@@ -22,8 +23,8 @@ const SAMPLE_POSTS: Post[] = [
     title: '어쿠스틱 기타 버스킹',
     description:
       '잔잔한 어쿠스틱 기타 선율로 여러분의 저녁을 따뜻하게 물들여 드립니다.',
-    imageUrl: '/images/sample-busking-1.jpg',
-    date: '2025.03.20',
+    imageUrl: '/sample_post_thumbnail.jpeg',
+    date: dayjs().subtract(-2, 'day').format('YYYY.MM.DD'),
     time: '18:00 - 20:00',
     location: '강남 스타일 파크',
     category: '어쿠스틱',
@@ -40,8 +41,8 @@ const SAMPLE_POSTS: Post[] = [
     title: '재즈 트리오 스페셜 공연',
     description:
       '피아노, 베이스, 드럼으로 구성된 재즈 트리오의 특별한 공연을 준비했습니다. 표준 재즈부터 현대 재즈까지 다양한 레퍼토리.',
-    imageUrl: '/images/sample-busking-2.jpg',
-    date: '2025.03.22',
+    imageUrl: '/sample_post_thumbnail.jpeg',
+    date: dayjs().subtract(-5, 'day').format('YYYY.MM.DD'),
     time: '19:30 - 21:30',
     location: '홍대 프리덤 스퀘어',
     category: '재즈',
@@ -58,8 +59,8 @@ const SAMPLE_POSTS: Post[] = [
     title: '팝 보컬 커버 공연',
     description:
       '인기 팝송과 케이팝 메들리를 준비했습니다. 함께 노래하고 즐겨요!',
-    imageUrl: '/images/sample-busking-3.jpg',
-    date: '2025.03.25',
+    imageUrl: '/sample_post_thumbnail.jpeg',
+    date: dayjs().subtract(-25, 'day').format('YYYY.MM.DD'),
     time: '17:00 - 19:00',
     location: '부산 해운대 해변',
     category: '보컬',
@@ -76,8 +77,8 @@ const SAMPLE_POSTS: Post[] = [
     title: '힙합 프리스타일 쇼케이스',
     description:
       '언더그라운드 래퍼들의 프리스타일 배틀과 라이브 공연이 펼쳐집니다.',
-    imageUrl: '/images/sample-busking-4.jpg',
-    date: '2025.03.28',
+    imageUrl: '/sample_post_thumbnail.jpeg',
+    date: dayjs().subtract(-3, 'month').format('YYYY.MM.DD'),
     time: '20:00 - 23:00',
     location: '대구 중앙로 지하철역 앞',
     category: '힙합',

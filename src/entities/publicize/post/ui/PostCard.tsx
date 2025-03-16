@@ -7,13 +7,18 @@ import {
   Button,
   ActionIcon,
   useMantineColorScheme,
+  BadgeProps,
+  CardProps,
 } from '@mantine/core';
+import dayjs from 'dayjs';
 import { IconHeart, IconMapPin, IconCalendar } from '@tabler/icons-react';
 import { styled } from 'styled-components';
 import Link from 'next/link';
 import { Post } from '@entities/publicize/post/model/types';
 
-const StyledCard = styled(Card)<{ isDark: boolean; children: React.ReactNode }>`
+const StyledCard = styled(Card)<
+  CardProps & { isDark: boolean; children: React.ReactNode }
+>`
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -21,7 +26,7 @@ const StyledCard = styled(Card)<{ isDark: boolean; children: React.ReactNode }>`
     transform 0.2s,
     box-shadow 0.2s;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 0.75rem;
 
   &:hover {
     transform: translateY(-4px);
@@ -32,44 +37,58 @@ const StyledCard = styled(Card)<{ isDark: boolean; children: React.ReactNode }>`
 const CardImageContainer = styled.div`
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   height: 180px;
 `;
 
-const DateBadge = styled(Badge)<{ children: React.ReactNode }>`
+const DateBadge = styled(Badge)<BadgeProps & { children: React.ReactNode }>`
   position: absolute;
   top: 12px;
   right: 12px;
   z-index: 2;
 `;
 
-interface FeedCardProps {
+interface PostCardProps {
   post: Post;
 }
 
-export const FeedCard = ({ post }: FeedCardProps) => {
+export const PostCard = ({ post }: PostCardProps) => {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
 
+  const dDayElement = (eventDate: string) => {
+    const nowDate = dayjs();
+    const dDayValue: number = Math.abs(
+      dayjs(eventDate).diff(nowDate, 'day') + 1
+    );
+
+    const color = dDayValue < 3 ? '#ff5050' : 'indigo';
+
+    return (
+      <DateBadge color={color} size="lg">
+        {dDayValue === 0 ? 'D-day' : `${dDayValue}-day`}
+      </DateBadge>
+    );
+  };
+
   return (
-    <StyledCard p="lg" radius="md" withBorder isDark={isDark}>
+    <StyledCard padding="lg" radius="md" withBorder isDark={isDark}>
       <CardImageContainer>
-        <DateBadge color="indigo" size="lg">
-          {post.date}
-        </DateBadge>
+        {dDayElement(post.date)}
         <Image
           src={post.imageUrl}
           alt={post.title}
-          height={180}
+          h={300}
+          fit="cover"
           radius="md"
-          className="object-cover"
+          // className="object-fit"
         />
       </CardImageContainer>
 
-      <Group position="apart" mt="md" mb="xs">
+      <Group justify="apart" mt="md" mb="xs" gap="sm">
         <Text
-          weight={700}
-          className={`text-lg ${isDark ? 'text-indigo-300' : 'text-indigo-800'} line-clamp-1`}
+          size="xl"
+          className={`font-bold ${isDark ? 'text-indigo-300' : 'text-indigo-800'} line-clamp-1`}
         >
           {post.title}
         </Text>
@@ -78,35 +97,38 @@ export const FeedCard = ({ post }: FeedCardProps) => {
         </Badge>
       </Group>
 
-      <Group spacing="xs" className="mb-2">
+      <Group gap="xs" className="mb-2">
         <IconMapPin
           size={16}
           className={isDark ? 'text-gray-400' : 'text-gray-500'}
         />
-        <Text size="sm" color="dimmed" className="line-clamp-1">
+        <Text size="md" c="dimmed" className="line-clamp-1">
           {post.location}
         </Text>
       </Group>
 
-      <Group spacing="xs" className="mb-2">
+      <Group gap="xs" className="mb-2">
         <IconCalendar
           size={16}
           className={isDark ? 'text-gray-400' : 'text-gray-500'}
         />
-        <Text size="sm" color="dimmed">
+        <Text size="md" c="dimmed">
+          {post.date}
+        </Text>
+        <Text size="md" c="dimmed">
           {post.time}
         </Text>
       </Group>
 
-      <Text size="sm" color="dimmed" className="line-clamp-2 mb-3 flex-1">
+      <Text size="md" c="dimmed" className="line-clamp-2 mb-3 flex-1">
         {post.description}
       </Text>
 
       <Group
-        position="apart"
+        justify="apart"
         className={`mt-auto pt-2 border-t ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
       >
-        <Group spacing="xs">
+        <Group gap="xs">
           <ActionIcon variant="light" color="pink" radius="md">
             <IconHeart size={18} />
           </ActionIcon>
@@ -116,7 +138,7 @@ export const FeedCard = ({ post }: FeedCardProps) => {
         </Group>
 
         <Link href={`/feed/${post.id}`} passHref>
-          <Button variant="subtle" color="indigo" compact>
+          <Button variant="subtle" color="indigo">
             자세히 보기
           </Button>
         </Link>
