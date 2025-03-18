@@ -3,7 +3,7 @@
 
 @layer base {
   /* TailwindCSS의 기본 스타일 */
-  @import 'tailwindcss';
+  /* @import 'tailwindcss'; */
 }
 
 @layer mantine {

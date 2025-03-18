@@ -2,15 +2,14 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Modal, Tooltip } from '@mantine/core';
+import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { IconPlus } from '@tabler/icons-react';
 import { LocationForm, useLocations } from '@features/location';
 import { LocationMapWidget } from '@widgets/busking-location/LocationMapWidget';
 import { Location } from '@features/location/model/location';
 import { STANDARD_RADIUS } from '@app/config/style';
-import { LocationSearchInputWidget } from '@widgets/busking-location/LocationSearchInputWidget';
+import { LocationControlWidget } from '@widgets/busking-location/LocationControlWidget';
 
 const MapSection = styled.div`
   flex: 1;
@@ -22,18 +21,8 @@ const MapSection = styled.div`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 `;
 
-const ButtonsContainer = styled.div`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
 const BuskingLocationsPage: React.FC = () => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, { close }] = useDisclosure(false);
   const [editingLocation, setEditingLocation] = useState<Location | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     null
@@ -89,7 +78,7 @@ const BuskingLocationsPage: React.FC = () => {
   //   }
   // };
 
-  const handleOpenAddModal = () => {
+  const openLocationAddModal = () => {
     setEditingLocation(null);
     open();
   };
@@ -105,22 +94,8 @@ const BuskingLocationsPage: React.FC = () => {
         selectedLocation={selectedLocation}
         onMarkerClick={handleMarkerClick}
       />
-      <LocationSearchInputWidget />
+      <LocationControlWidget openLocationAddModal={openLocationAddModal} />
 
-      <ButtonsContainer>
-        <Tooltip label="새 버스킹 장소 등록하기">
-          <Button
-            onClick={handleOpenAddModal}
-            color="indigo"
-            radius="md"
-            size="md"
-            leftSection={<IconPlus size={16} />}
-            className="bg-gradient-to-r from-blue-500 to-indigo-600"
-          >
-            장소 등록
-          </Button>
-        </Tooltip>
-      </ButtonsContainer>
       <Modal
         opened={opened}
         onClose={close}

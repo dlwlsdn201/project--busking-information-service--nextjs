@@ -11,6 +11,8 @@ import {
 } from '@mantine/core';
 import { IconSearch, IconMapPin } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
+import { STANDARD_THEME } from '@app/config/color';
+import { STANDARD_RADIUS } from '../../../app/config/style';
 
 interface SearchLocationInputProps {
   onLocationSelect: (location: {
@@ -75,35 +77,39 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           leftSection={<IconMapPin size={16} />}
+          size="sm"
           rightSection={
             loading ? (
               <Loader size="xs" />
             ) : (
-              <ActionIcon onClick={handleSearch}>
+              <ActionIcon
+                onClick={handleSearch}
+                style={{ background: STANDARD_THEME.primary }}
+              >
                 <IconSearch size={16} />
               </ActionIcon>
             )
           }
-          style={{ flex: 1 }}
-          onKeyPress={(e) => {
+          style={{ flex: 1, borderRadius: STANDARD_RADIUS }}
+          onKeyUp={(e) => {
             if (e.key === 'Enter') handleSearch();
           }}
         />
       </Group>
 
       <Collapse in={opened}>
-        <Paper withBorder mt="xs" p={0}>
+        <Paper withBorder p="xs">
           {results.length > 0 ? (
             results.map((item, index) => (
               <div
                 key={index}
-                className="p-2 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                className="p-1 mt-1 hover:bg-gray-50 cursor-pointer border-b border-b-gray-200 last:border-b-0"
                 onClick={() => handleSelect(item)}
               >
                 <Text size="sm" fw={500}>
                   {item.place_name}
                 </Text>
-                <Text size="xs" color="dimmed">
+                <Text size="xs" c="dimmed">
                   {item.address_name}
                 </Text>
               </div>
