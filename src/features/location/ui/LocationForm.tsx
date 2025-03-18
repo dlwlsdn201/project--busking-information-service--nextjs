@@ -46,9 +46,9 @@ export const LocationForm: React.FC<LocationFormProps> = ({
       imageUrl: null,
     },
     validate: {
-      name: (value) =>
+      name: (value: string) =>
         value.trim().length > 0 ? null : '장소 이름을 입력해주세요',
-      address: (value) =>
+      address: (value: string) =>
         value.trim().length > 0 ? null : '주소를 입력해주세요',
     },
   });

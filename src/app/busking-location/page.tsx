@@ -1,27 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Modal, Paper, Tooltip } from '@mantine/core';
+import { Button, Modal, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconPlus } from '@tabler/icons-react';
-import {
-  LocationForm,
-  SearchLocationInput,
-  useLocations,
-} from '@features/location';
-import { BuskingLocationCard } from '@entities/location';
-import { MapContainerWidget } from '@widgets/busking-location/MapContainerWidget';
-
-// 스타일 컴포넌트 정의
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 60px);
-  background-color: #f5f8ff;
-`;
+import { LocationForm, useLocations } from '@features/location';
+import { LocationMapWidget } from '@widgets/busking-location/LocationMapWidget';
+import { Location } from '@features/location/model/location';
+import { STANDARD_RADIUS } from '@app/config/style';
+import { LocationSearchInputWidget } from '@widgets/busking-location/LocationSearchInputWidget';
 
 const MapSection = styled.div`
   flex: 1;
@@ -29,7 +18,7 @@ const MapSection = styled.div`
   height: calc(100vh - 180px);
   width: 100%;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: ${STANDARD_RADIUS};
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 `;
 
@@ -43,34 +32,13 @@ const ButtonsContainer = styled.div`
   gap: 12px;
 `;
 
-const SearchContainer = styled(Paper)`
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 100;
-  width: 320px;
-`;
-
-const PageTitle = styled.h1`
-  color: #4263eb;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 8px;
-`;
-
-const PageSubtitle = styled.p`
-  color: #5c7cfa;
-  font-size: 16px;
-  margin-bottom: 24px;
-`;
-
 const BuskingLocationsPage: React.FC = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [editingLocation, setEditingLocation] = useState<Location | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     null
   );
-  const { locations, addLocation, deleteLocation, isLoading } = useLocations();
+  const { locations, addLocation } = useLocations();
   //   const router = useRouter();
 
   const handleAddLocation = (locationData: Omit<Location, 'id'>) => {
@@ -96,28 +64,30 @@ const BuskingLocationsPage: React.FC = () => {
         message: '위치 추가 중 문제가 발생했습니다. 다시 시도해주세요.',
         color: 'red',
       });
+
+      console.error('Error adding location:', error);
     }
   };
 
-  const handleDeleteLocation = (locationId: string) => {
-    try {
-      deleteLocation(locationId);
-      notifications.show({
-        title: '위치 삭제 완료',
-        message: '버스킹 장소가 성공적으로 삭제되었습니다.',
-        color: 'blue',
-      });
-      if (selectedLocation?.id === locationId) {
-        setSelectedLocation(null);
-      }
-    } catch (error) {
-      notifications.show({
-        title: '오류 발생',
-        message: '위치 삭제 중 문제가 발생했습니다. 다시 시도해주세요.',
-        color: 'red',
-      });
-    }
-  };
+  // const handleDeleteLocation = (locationId: string) => {
+  //   try {
+  //     deleteLocation(locationId);
+  //     notifications.show({
+  //       title: '위치 삭제 완료',
+  //       message: '버스킹 장소가 성공적으로 삭제되었습니다.',
+  //       color: 'blue',
+  //     });
+  //     if (selectedLocation?.id === locationId) {
+  //       setSelectedLocation(null);
+  //     }
+  //   } catch (error) {
+  //     notifications.show({
+  //       title: '오류 발생',
+  //       message: '위치 삭제 중 문제가 발생했습니다. 다시 시도해주세요.',
+  //       color: 'red',
+  //     });
+  //   }
+  // };
 
   const handleOpenAddModal = () => {
     setEditingLocation(null);
@@ -129,114 +99,28 @@ const BuskingLocationsPage: React.FC = () => {
   };
 
   return (
-    <PageContainer>
-      <div className="container mx-auto px-4 py-6">
-        <MapSection>
-          <MapContainerWidget
-            locations={locations}
-            selectedLocation={selectedLocation}
-            onMarkerClick={handleMarkerClick}
-          />
+    <MapSection>
+      <LocationMapWidget
+        locations={locations}
+        selectedLocation={selectedLocation}
+        onMarkerClick={handleMarkerClick}
+      />
+      <LocationSearchInputWidget />
 
-          <SearchContainer p="md" withBorder>
-            <SearchLocationInput
-              onLocationSelect={(location) => {
-                // 지도 중심 이동하는 로직
-              }}
-            />
-          </SearchContainer>
-
-          <ButtonsContainer>
-            <Tooltip label="새 버스킹 장소 등록하기">
-              <Button
-                onClick={handleOpenAddModal}
-                color="indigo"
-                radius="md"
-                size="md"
-                leftSection={<IconPlus size={16} />}
-                className="bg-gradient-to-r from-blue-500 to-indigo-600"
-              >
-                장소 등록
-              </Button>
-            </Tooltip>
-          </ButtonsContainer>
-        </MapSection>
-
-        {selectedLocation && (
-          <BuskingLocationCard
-            location={selectedLocation}
-            onDelete={handleDeleteLocation}
-          />
-        )}
-
-        {/* 
-        {selectedLocation && (
-          <Paper
-            shadow="sm"
-            p="lg"
-            mt="md"
+      <ButtonsContainer>
+        <Tooltip label="새 버스킹 장소 등록하기">
+          <Button
+            onClick={handleOpenAddModal}
+            color="indigo"
             radius="md"
-            className="bg-white border border-blue-100"
+            size="md"
+            leftSection={<IconPlus size={16} />}
+            className="bg-gradient-to-r from-blue-500 to-indigo-600"
           >
-            <Group justify="space-between" mb="md">
-              <div>
-                <Text size="xl" fw={700} c="indigo.7">
-                  {selectedLocation.name}
-                </Text>
-                <Text size="sm" c="dimmed">
-                  {selectedLocation.address}
-                </Text>
-              </div>
-              <Group>
-                <Badge
-                  color={
-                    selectedLocation.requiresPermission ? 'orange' : 'teal'
-                  }
-                  radius="sm"
-                  size="lg"
-                >
-                  {selectedLocation.requiresPermission
-                    ? '허가 필요'
-                    : '자유 공연'}
-                </Badge>
-                <ActionIcon
-                  color="red"
-                  onClick={() => handleDeleteLocation(selectedLocation.id)}
-                  variant="light"
-                >
-                  <IconTrash size={18} />
-                </ActionIcon>
-              </Group>
-            </Group>
-
-            <Group gap="xl" mt="lg">
-              {selectedLocation.contactInfo && (
-                <div className="flex items-center gap-2">
-                  <IconPhone size={16} className="text-gray-500" />
-                  <Text size="sm">{selectedLocation.contactInfo}</Text>
-                </div>
-              )}
-            </Group>
-
-            {selectedLocation.imageUrl && (
-              <div className="mt-4">
-                <img
-                  src={selectedLocation.imageUrl}
-                  alt={selectedLocation.name}
-                  className="w-full h-64 object-cover rounded-md"
-                />
-              </div>
-            )}
-
-            {selectedLocation.description && (
-              <Text mt="md" size="sm" className="text-gray-700">
-                {selectedLocation.description}
-              </Text>
-            )}
-          </Paper>
-        )} */}
-      </div>
-
+            장소 등록
+          </Button>
+        </Tooltip>
+      </ButtonsContainer>
       <Modal
         opened={opened}
         onClose={close}
@@ -254,7 +138,7 @@ const BuskingLocationsPage: React.FC = () => {
           onCancel={close}
         />
       </Modal>
-    </PageContainer>
+    </MapSection>
   );
 };
 

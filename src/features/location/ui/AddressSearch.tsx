@@ -63,6 +63,8 @@ export const AddressSearch: React.FC<AddressSearchProps> = ({
     } catch (err) {
       setError('주소 검색 중 오류가 발생했습니다.');
       setLoading(false);
+
+      console.log('Error fetching address data:', err);
     }
   };
 
@@ -72,7 +74,7 @@ export const AddressSearch: React.FC<AddressSearchProps> = ({
 
   return (
     <Paper p="md" withBorder shadow="md">
-      <Stack spacing="md">
+      <Stack gap="md">
         <Text size="lg" fw={500}>
           주소 검색
         </Text>

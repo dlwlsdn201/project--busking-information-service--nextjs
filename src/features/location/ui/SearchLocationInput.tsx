@@ -9,7 +9,7 @@ import {
   Loader,
   Collapse,
 } from '@mantine/core';
-import { IconSearch, IconMapPin, IconArrowRight } from '@tabler/icons-react';
+import { IconSearch, IconMapPin } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 
 interface SearchLocationInputProps {
@@ -52,6 +52,8 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
     } catch (error) {
       setLoading(false);
       setResults([]);
+
+      console.error('Error fetching location data:', error);
     }
   };
 
@@ -66,7 +68,7 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
   };
 
   return (
-    <div>
+    <>
       <Group>
         <TextInput
           placeholder="버스킹 장소 검색"
@@ -113,6 +115,6 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
           )}
         </Paper>
       </Collapse>
-    </div>
+    </>
   );
 };

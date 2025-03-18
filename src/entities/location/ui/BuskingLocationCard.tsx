@@ -8,6 +8,7 @@ import {
   Group,
   ActionIcon,
   Tooltip,
+  CardProps,
 } from '@mantine/core';
 import {
   IconMapPin,
@@ -24,7 +25,7 @@ interface BuskingLocationCardProps {
   onDelete?: (locationId: string) => void;
 }
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card)<{ children: React.ReactNode } & CardProps>`
   transition: all 0.2s ease;
   &:hover {
     transform: translateY(-4px);
@@ -45,10 +46,8 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
         </Card.Section>
       )}
 
-      <Group position="apart" mt="md" mb="xs">
-        <Text weight={600} size="lg">
-          {location.name}
-        </Text>
+      <Group align="start" mt="md" mb="xs">
+        <Text size="lg">{location.name}</Text>
         <Badge
           color={location.requiresPermission ? 'orange' : 'teal'}
           variant="light"
@@ -57,7 +56,7 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
         </Badge>
       </Group>
 
-      <Group spacing={6} mb="xs">
+      <Group gap={6} mb="xs">
         <IconMapPin size={16} color="gray" />
         <Text size="sm" color="dimmed">
           {location.address}
@@ -65,7 +64,7 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
       </Group>
 
       {location.contactInfo && (
-        <Group spacing={6} mb="xs">
+        <Group gap={6} mb="xs">
           <IconPhone size={16} color="gray" />
           <Text size="sm" color="dimmed">
             {location.contactInfo}
@@ -80,7 +79,7 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
       )}
 
       {(onEdit || onDelete) && (
-        <Group position="right" mt="md">
+        <Group align="right" mt="md">
           {onEdit && (
             <Tooltip label="수정">
               <ActionIcon
