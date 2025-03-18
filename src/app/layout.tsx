@@ -23,7 +23,8 @@ export default function RootLayout({
       <head>
         <script
           type="text/javascript"
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}`}
+          // libraries={['services', 'clusterer']}  => services(장소 검색, 주소-좌표 변환) & clusterer(마커 클러스터링) 라이브러리 사용
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&libraries=services,clusterer&autoload=false`}
         ></script>
       </head>
       <body>
