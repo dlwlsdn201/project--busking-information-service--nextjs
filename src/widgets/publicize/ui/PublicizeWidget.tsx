@@ -10,10 +10,6 @@ import {
 } from '@features/publicize';
 import styled from 'styled-components';
 
-const StyledContainer = styled.div`
-  min-height: 100%;
-`;
-
 const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,26 +25,24 @@ export const PublicizeWidget = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <StyledContainer>
-      <InnerWrapper>
-        <div className="flex w-full max-h-[10%] md:flex-row justify-end items-start md:items-center mb-6">
-          <CreatePostButton />
-        </div>
-        <PublicizeFilterBar
-          selectedRegion={selectedRegion}
-          setSelectedRegion={setSelectedRegion}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+    <InnerWrapper>
+      <div className="flex w-full max-h-[10%] md:flex-row justify-end items-start md:items-center mb-6">
+        <CreatePostButton />
+      </div>
+      <PublicizeFilterBar
+        selectedRegion={selectedRegion}
+        setSelectedRegion={setSelectedRegion}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
 
-        <PublicizePostList
-          region={selectedRegion}
-          category={selectedCategory}
-          searchQuery={searchQuery}
-        />
-      </InnerWrapper>
-    </StyledContainer>
+      <PublicizePostList
+        region={selectedRegion}
+        category={selectedCategory}
+        searchQuery={searchQuery}
+      />
+    </InnerWrapper>
   );
 };

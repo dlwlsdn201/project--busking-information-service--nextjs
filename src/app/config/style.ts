@@ -14,6 +14,8 @@ export const STANDARD_GAP = {
   lg: '1.5rem',
 };
 
+export const STANDARD_RADIUS = '0.75rem';
+
 export const STANDARD_TRANSITION: {
   duration: {
     fast: number;
