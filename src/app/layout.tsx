@@ -24,7 +24,7 @@ export default function RootLayout({
         <script
           type="text/javascript"
           // libraries={['services', 'clusterer']}  => services(장소 검색, 주소-좌표 변환) & clusterer(마커 클러스터링) 라이브러리 사용
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&libraries=services,clusterer&autoload=false`}
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&libraries=services,clusterer`}
         ></script>
       </head>
       <body>

@@ -31,7 +31,12 @@
       "@assets/*": ["assets/*"],
       "@app/*": ["app/*"]
     },
-    "types": ["jest", "@testing-library/jest-dom", "@jest/globals"], // Vite, Jest, RTL 타입 추가
+    "types": [
+      "jest",
+      "@testing-library/jest-dom",
+      "@jest/globals",
+      "kakao.maps.d.ts"
+    ], // Vite, Jest, RTL 타입 추가
     "allowJs": true,
     "incremental": true,
     "plugins": [
@@ -40,6 +45,13 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "typeRoots": ["/", "./shared/model"], // 타입 정의 파일의 경로 설정
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/shared/model/**/*.ts"
+  ],
   "exclude": ["node_modules", ".next"]
 }

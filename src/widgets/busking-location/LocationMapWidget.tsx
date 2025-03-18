@@ -28,10 +28,10 @@ export const LocationMapWidget: React.FC<LocationMapWidgetProps> = ({
   // 지도 초기화
   useEffect(() => {
     if (!kakaoMapLoaded || !mapRef.current) return;
-
+    console.log(window.kakao?.maps);
     const options = {
       center: new window.kakao.maps.LatLng(37.5665, 126.978), // 서울 중심
-      level: 7,
+      level: 8, // 확대 레벨
     };
 
     const map = new window.kakao.maps.Map(mapRef.current, options);
@@ -39,7 +39,7 @@ export const LocationMapWidget: React.FC<LocationMapWidgetProps> = ({
 
     // 확대 축소 컨트롤 추가
     const zoomControl = new window.kakao.maps.ZoomControl();
-    map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
+    map.addControl(zoomControl, window.kakao.maps.ControlPosition.TOPRIGHT);
 
     // 지도 타입 컨트롤 추가
     const mapTypeControl = new window.kakao.maps.MapTypeControl();
