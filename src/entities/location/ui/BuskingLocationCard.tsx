@@ -49,10 +49,10 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
       <Group align="start" mt="md" mb="xs">
         <Text size="lg">{location.name}</Text>
         <Badge
-          color={location.requiresPermission ? 'orange' : 'teal'}
+          color={location.requiresApprove ? 'orange' : 'teal'}
           variant="light"
         >
-          {location.requiresPermission ? '허가 필요' : '자유 공연'}
+          {location.requiresApprove ? '허가 필요' : '자유 공연'}
         </Badge>
       </Group>
 
