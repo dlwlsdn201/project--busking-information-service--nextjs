@@ -22,8 +22,10 @@ const MapSection = styled.div`
 `;
 
 const BuskingLocationsPage: React.FC = () => {
-  const [opened, { close }] = useDisclosure(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  // TODO - [Zustand 로 이동]
   const [editingLocation, setEditingLocation] = useState<Location | null>(null);
+  // TODO - [Zustand 로 이동]
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     null
   );
@@ -39,7 +41,7 @@ const BuskingLocationsPage: React.FC = () => {
         address: '',
         latitude: 0,
         longitude: 0,
-        requiresPermission: false,
+        requiresApprove: false,
       });
       notifications.show({
         title: '위치 추가 완료',

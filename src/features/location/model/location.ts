@@ -5,10 +5,10 @@ export interface Location {
   address: string;
   latitude: number;
   longitude: number;
-  requiresPermission: boolean;
+  requiresApprove: boolean;
   contactInfo?: string;
   description?: string;
-  imageUrl?: string | null;
+  imageUrls?: string[] | null;
 }
 
 export interface LocationFormData {
@@ -16,7 +16,7 @@ export interface LocationFormData {
   address: string;
   latitude: number;
   longitude: number;
-  requiresPermission: boolean;
+  requiresApprove: boolean;
   contactInfo?: string;
   description?: string;
   imageUrl?: string | null;

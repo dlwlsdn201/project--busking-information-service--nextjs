@@ -40,10 +40,10 @@ export const LocationForm: React.FC<LocationFormProps> = ({
       address: '',
       latitude: 0,
       longitude: 0,
-      requiresPermission: false,
+      requiresApprove: false,
       contactInfo: '',
       description: '',
-      imageUrl: null,
+      imageUrls: [],
     },
     validate: {
       name: (value: string) =>
@@ -112,7 +112,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({
         <Switch
           label="공연 허가가 필요한 장소인가요?"
           description="허가가 필요한 경우 체크해주세요"
-          {...form.getInputProps('requiresPermission', { type: 'checkbox' })}
+          {...form.getInputProps('requiresApprove', { type: 'checkbox' })}
         />
 
         <TextInput
