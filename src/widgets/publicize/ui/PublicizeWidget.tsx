@@ -16,7 +16,7 @@ const InnerWrapper = styled.div`
   width: 100%;
   height: 100%;
   row-gap: 0.75em;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 
 export const PublicizeWidget = () => {
