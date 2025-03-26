@@ -1,3 +1,4 @@
+import { STANDARD_THEME } from '@app/config/color';
 import { RESPONSIVE_BREAKPOINTS } from '@app/config/responsive';
 import { STANDARD_PADDING } from '@app/config/style';
 import styled from 'styled-components';
@@ -15,7 +16,7 @@ export const SidebarContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: space-between;
   padding: ${STANDARD_PADDING.md} ${STANDARD_PADDING.sm};
-  border-right: 1px solid #424242;
+  border-right: 1px solid ${STANDARD_THEME.border};
 `;
 
 export const NavigationWrapper = styled.div`
