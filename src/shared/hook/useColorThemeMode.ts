@@ -2,10 +2,7 @@ import { useMantineColorScheme } from '@mantine/core';
 import { useState, useEffect } from 'react';
 
 interface UseColorThemeModeReturn
-  extends Pick<
-    ReturnType<typeof useMantineColorScheme>,
-    'colorScheme' | 'toggleColorScheme'
-  > {
+  extends Pick<ReturnType<typeof useMantineColorScheme>, 'toggleColorScheme'> {
   isMounted: boolean;
   isDarkMode: boolean;
 }
@@ -26,12 +23,10 @@ export const useColorThemeMode = (): UseColorThemeModeReturn => {
       setIsDarkMode(false);
       setMounted(false);
     };
-  }, []);
-
+  }, [colorScheme]);
   return {
     isMounted,
     isDarkMode,
-    colorScheme,
     toggleColorScheme,
   };
 };
