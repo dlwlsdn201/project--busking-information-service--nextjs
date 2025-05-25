@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:auto": "jest --watch --coverage",
+    "start": "next start",
     "dev": "next dev",
     "build": "pnpm eslint . && next build"
   },
