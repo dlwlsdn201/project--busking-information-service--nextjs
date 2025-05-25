@@ -1,8 +1,7 @@
-import {
-  ActionIcon,
-  ActionIconProps,
-  useMantineColorScheme,
-} from '@mantine/core';
+'use client';
+
+import { ActionIcon, ActionIconProps } from '@mantine/core';
+import { useColorThemeMode } from '@shared/hook';
 import { IconMoon, IconSun } from '@tabler/icons-react';
 import styled from 'styled-components';
 
@@ -13,17 +12,16 @@ const StyledActionIcon = styled(ActionIcon)<
 `;
 
 export const ThemeToggleButton: React.FC = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const isDark = colorScheme === 'dark';
+  const { isDarkMode, toggleColorScheme } = useColorThemeMode();
 
   return (
     <StyledActionIcon
       onClick={() => toggleColorScheme()}
       size="xl"
       variant="default"
-      color={isDark ? 'yellow' : 'blue'}
+      color={isDarkMode ? 'yellow' : 'blue'}
     >
-      {isDark ? <IconSun size={22} /> : <IconMoon size={22} />}
+      {isDarkMode ? <IconSun size={22} /> : <IconMoon size={22} />}
     </StyledActionIcon>
   );
 };

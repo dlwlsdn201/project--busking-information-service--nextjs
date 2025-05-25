@@ -7,6 +7,7 @@ import '@mantine/dates/styles.css';
 import './globals.css';
 import { PagePaddingLayout } from '@shared/ui/layout';
 import ConfigProviders from './config/provider';
+import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 
 // export const metadata = {
 //   title: 'Next.js',
@@ -19,8 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" {...mantineHtmlProps}>
       <head>
+        <ColorSchemeScript />
         <script
           type="text/javascript"
           // libraries={['services', 'clusterer']}  => services(장소 검색, 주소-좌표 변환) & clusterer(마커 클러스터링) 라이브러리 사용

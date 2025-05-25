@@ -115,7 +115,7 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
               </div>
             ))
           ) : (
-            <Text size="sm" p="xs" color="dimmed" ta="center">
+            <Text size="sm" p="xs" c="dimmed" ta="center">
               검색 결과가 없습니다
             </Text>
           )}
