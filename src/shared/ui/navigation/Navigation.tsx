@@ -3,9 +3,15 @@
 import { NavLink } from '@mantine/core';
 import { usePathname } from 'next/navigation';
 import { ROUTE_LIST } from '@shared/config/Navigation';
-import { NavigationContainer, StyledAside } from './Navigation.styled';
+import {
+  NavigationWrapper,
+  SidebarContainer,
+  StyledAside,
+} from './Navigation.styled';
+import { ThemeToggleButton } from '@shared/ui/common';
+import { STANDARD_FONT_SIZES } from '@app/config/font';
 
-export const Navigation = ({}): React.ReactElement => {
+export const Navigation = (): React.ReactElement => {
   const currentPath = usePathname();
 
   const navigationItems = ROUTE_LIST.map((item) => {
@@ -20,13 +26,18 @@ export const Navigation = ({}): React.ReactElement => {
         variant="light"
         color="#5542d0"
         autoContrast
+        styles={{ label: { fontSize: STANDARD_FONT_SIZES.md } }}
       />
     );
   });
 
   return (
     <StyledAside>
-      <NavigationContainer>{navigationItems}</NavigationContainer>;
+      <SidebarContainer>
+        <NavigationWrapper>{navigationItems}</NavigationWrapper>
+        <ThemeToggleButton />
+      </SidebarContainer>
+      ;
     </StyledAside>
   );
 };

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { Skeleton } from '@mantine/core';
 import styled from 'styled-components';
-import { FlexLayout } from '@shared/ui/layout/FlexLayout';
 import {
   EnrollBuskerStatistic,
   ThisWeekEventStatistic,
@@ -15,7 +14,6 @@ import { DailyVisitSiteStatistic } from '@features/dashboard-card/ui/DailyVisitS
 import { ThisWeekEventEachRegionStatistic } from '@features/dashboard-card/ui/ThisWeekEventEachRegionStatistic';
 import { EachRegionBuskerStatistic } from '@features/dashboard-card/ui/EachRegionBuskerStatistic';
 import { LatestPosts } from '@features/dashboard-card/ui/LatestPosts';
-import { PageTitle } from '@shared/ui/common';
 import { RESPONSIVE_BREAKPOINTS } from '@app/config/responsive';
 
 const BriefStatisticSection = styled.div<{
