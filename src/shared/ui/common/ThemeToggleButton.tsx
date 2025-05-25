@@ -1,9 +1,12 @@
+'use client';
+
 import {
   ActionIcon,
   ActionIconProps,
   useMantineColorScheme,
 } from '@mantine/core';
 import { IconMoon, IconSun } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledActionIcon = styled(ActionIcon)<
@@ -13,8 +16,20 @@ const StyledActionIcon = styled(ActionIcon)<
 `;
 
 export const ThemeToggleButton: React.FC = () => {
+  const [isMounted, setMounted] = useState(false);
+
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+
+  useEffect(() => {
+    if (!isMounted) setMounted(true);
+
+    return () => {
+      setMounted(false);
+    };
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <StyledActionIcon
