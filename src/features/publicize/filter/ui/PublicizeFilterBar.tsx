@@ -17,7 +17,8 @@ import { STANDARD_FONT_SIZES } from '../../../../app/config/font';
 import { STANDARD_TRANSITION } from '@app/config/style';
 
 const StyledFilterBar = styled.div<{ $isDark: boolean }>`
-  background-color: ${(props) => (props.$isDark ? '#2C2E33' : 'white')};
+  background-color: ${(props) =>
+    props.$isDark ? '#2C2E33' : 'rgba(66, 100, 235, 0.03)'};
   max-height: 10%;
   border-radius: 12px;
   padding: 1rem;
@@ -48,7 +49,7 @@ export const PublicizeFilterBar = ({
 
   return (
     <StyledFilterBar $isDark={isDark}>
-      <div className="flex flex-col md:flex-row gap-3">
+      <div className="flex md:flex-row gap-3">
         <TextInput
           leftSection={<IconSearch size={18} />}
           placeholder="공연명, 아티스트 검색"
@@ -98,7 +99,7 @@ export const PublicizeFilterBar = ({
         <Button
           leftSection={<IconFilter size={18} />}
           variant="light"
-          color="grape"
+          color="#DB3B5B"
           radius="md"
           onClick={() => {
             setSelectedRegion(null);
