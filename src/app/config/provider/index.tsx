@@ -10,7 +10,7 @@ export default function ConfigProviders({
 }) {
   return (
     <StyledComponentProvider>
-      <MantineProvider>{children}</MantineProvider>
+      <MantineProvider defaultColorScheme="light">{children}</MantineProvider>
     </StyledComponentProvider>
   );
 }
