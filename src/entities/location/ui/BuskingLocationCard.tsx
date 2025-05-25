@@ -40,9 +40,9 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
 }) => {
   return (
     <StyledCard shadow="sm" p="lg" radius="md" withBorder>
-      {location.imageUrl && (
+      {location.imageUrls?.[0] && (
         <Card.Section>
-          <Image src={location.imageUrl} height={160} alt={location.name} />
+          <Image src={location.imageUrls[0]} height={160} alt={location.name} />
         </Card.Section>
       )}
 
@@ -58,7 +58,7 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
 
       <Group gap={6} mb="xs">
         <IconMapPin size={16} color="gray" />
-        <Text size="sm" color="dimmed">
+        <Text size="sm" c="dimmed">
           {location.address}
         </Text>
       </Group>
@@ -66,7 +66,7 @@ export const BuskingLocationCard: React.FC<BuskingLocationCardProps> = ({
       {location.contactInfo && (
         <Group gap={6} mb="xs">
           <IconPhone size={16} color="gray" />
-          <Text size="sm" color="dimmed">
+          <Text size="sm" c="dimmed">
             {location.contactInfo}
           </Text>
         </Group>
