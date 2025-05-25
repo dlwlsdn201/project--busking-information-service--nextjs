@@ -15,7 +15,6 @@ export const useColorThemeMode = (): UseColorThemeModeReturn => {
 
   useEffect(() => {
     if (!isMounted) {
-      setIsDarkMode(colorScheme === 'dark');
       setMounted(true);
     }
 
@@ -23,7 +22,14 @@ export const useColorThemeMode = (): UseColorThemeModeReturn => {
       setIsDarkMode(false);
       setMounted(false);
     };
-  }, [colorScheme]);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      setIsDarkMode(colorScheme === 'dark');
+    }
+  }, [isMounted, colorScheme]);
+
   return {
     isMounted,
     isDarkMode,
