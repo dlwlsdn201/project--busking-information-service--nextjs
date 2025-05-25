@@ -12,8 +12,16 @@ interface LocationMapWidgetProps {
 }
 
 const MapWrapper = styled.div`
-  width: 100%;
+  max-width: 100%;
   height: 100%;
+  position: relative;
+  overflow: hidden; // ✅ 추가!
+  z-index: 1; // ✅ 다른 요소들과 겹침 방지
+
+  svg {
+    max-width: 100%;
+    z-index: -1;
+  }
 `;
 
 export const LocationMapWidget: React.FC<LocationMapWidgetProps> = ({
@@ -25,6 +33,15 @@ export const LocationMapWidget: React.FC<LocationMapWidgetProps> = ({
   const markersRef = useRef<any[]>([]);
   const kakaoMapLoaded = useKakaoMapScript();
   const mapInstanceRef = useRef<any>(null);
+
+  // 마커 표시
+  useInfoWindow({
+    kakaoMapLoaded,
+    mapInstanceRef,
+    markersRef,
+    locations,
+    onMarkerClick,
+  });
 
   // 지도 초기화
   useEffect(() => {
@@ -51,15 +68,6 @@ export const LocationMapWidget: React.FC<LocationMapWidgetProps> = ({
       markersRef.current = [];
     };
   }, [kakaoMapLoaded]);
-
-  // 마커 표시
-  useInfoWindow({
-    kakaoMapLoaded,
-    mapInstanceRef,
-    markersRef,
-    locations,
-    onMarkerClick,
-  });
 
   // 선택된 위치가 변경될 때 해당 마커로 이동
   useEffect(() => {
