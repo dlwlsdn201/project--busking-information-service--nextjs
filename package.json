@@ -8,6 +8,7 @@
     "test:auto": "jest --watch --coverage",
     "start": "next start",
     "dev": "next dev",
+    "lint": "eslint .",
     "build": "pnpm eslint . && next build"
   },
   "keywords": [],
