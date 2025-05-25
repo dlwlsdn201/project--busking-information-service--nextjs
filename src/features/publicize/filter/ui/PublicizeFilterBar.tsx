@@ -72,9 +72,9 @@ export const PublicizeFilterBar = ({
           value={selectedRegion}
           onChange={setSelectedRegion}
           clearable
-          className="w-full md:w-40"
-          radius="md"
+          className="md:w-48"
           size="lg"
+          radius="md"
         />
 
         <Select
@@ -90,7 +90,7 @@ export const PublicizeFilterBar = ({
           value={selectedCategory}
           onChange={setSelectedCategory}
           clearable
-          className="w-full md:w-40"
+          className="w-full md:w-48"
           radius="md"
           size="lg"
         />
