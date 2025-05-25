@@ -28,10 +28,16 @@ const StyledCard = styled(Card)<
   overflow: hidden;
   border-radius: 0.75rem;
 
+  background-color: ${(props) =>
+    props.$isDark ? '#2C2E33' : 'rgba(66, 100, 235, 0.03)'};
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 20px
       rgba(0, 0, 0, ${(props) => (props.$isDark ? '0.4' : '0.1')});
+
+    background-color: ${(props) =>
+      props.$isDark ? '#2C2E33' : 'rgba(66, 100, 235, 0.07)'};
   }
 `;
 const CardImageContainer = styled.div`
@@ -132,7 +138,7 @@ export const PostCard = ({ post }: PostCardProps) => {
           <ActionIcon variant="light" color="pink" radius="md">
             <IconHeart size={18} />
           </ActionIcon>
-          <Text size="sm" color="dimmed">
+          <Text size="sm" c="dimmed">
             {post.likes}
           </Text>
         </Group>
