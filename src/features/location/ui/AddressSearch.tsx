@@ -12,14 +12,14 @@ import {
 import { IconSearch, IconMapPin } from '@tabler/icons-react';
 
 interface AddressSearchProps {
-  onSelect: (address: string, latitude: number, longitude: number) => void;
+  onSelect: (address: string, lat: number, lng: number) => void;
   onClose: () => void;
 }
 
 interface AddressResult {
   address_name: string;
-  x: string; // longitude
-  y: string; // latitude
+  x: string; // lng
+  y: string; // lat
 }
 
 export const AddressSearch: React.FC<AddressSearchProps> = ({

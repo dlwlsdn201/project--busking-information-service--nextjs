@@ -16,6 +16,22 @@ const nextConfig = {
     return config;
   },
 
+  // 카카오맵 스크립트를 위한 CSP 설정
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value:
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' dapi.kakao.com;",
+          },
+        ],
+      },
+    ];
+  },
+
   redirects: async () => {
     return [
       {

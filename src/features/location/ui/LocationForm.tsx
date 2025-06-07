@@ -18,12 +18,12 @@ import {
   IconPhone,
   IconBuildingCommunity,
 } from '@tabler/icons-react';
-import { Location } from '../model/location';
 import { AddressSearch } from './AddressSearch';
+import { BuskingSpot } from '@entities/location/model/spot';
 
 interface LocationFormProps {
-  initialData: Location | null;
-  onSubmit: (data: Omit<Location, 'id'>) => void;
+  initialData: BuskingSpot | null;
+  onSubmit: (data: Omit<BuskingSpot, 'id'>) => void;
   onCancel: () => void;
 }
 
@@ -38,12 +38,14 @@ export const LocationForm: React.FC<LocationFormProps> = ({
     initialValues: initialData || {
       name: '',
       address: '',
-      latitude: 0,
-      longitude: 0,
-      requiresApprove: false,
-      contactInfo: '',
-      description: '',
-      imageUrls: [],
+      lat: 0,
+      lng: 0,
+      permitRequired: false,
+      operatingHours: '',
+      contact: '',
+      electricSupply: false,
+      notes: '',
+      images: [],
     },
     validate: {
       name: (value: string) =>
@@ -57,8 +59,8 @@ export const LocationForm: React.FC<LocationFormProps> = ({
     form.setValues({
       ...form.values,
       address,
-      latitude: lat,
-      longitude: lng,
+      lat: lat,
+      lng: lng,
     });
     setAddressSearchOpen(false);
   };
@@ -111,15 +113,23 @@ export const LocationForm: React.FC<LocationFormProps> = ({
 
         <Switch
           label="공연 허가가 필요한 장소인가요?"
+          name="permitRequired"
           description="허가가 필요한 경우 체크해주세요"
-          {...form.getInputProps('requiresApprove', { type: 'checkbox' })}
+          {...form.getInputProps('permitRequired', { type: 'checkbox' })}
+        />
+
+        <Switch
+          label="전기가 제공되는 환경인가요?"
+          name="electricSupply"
+          description="전기 제공이 가능한 콘센트가 있을 경우, 체크해주세요"
+          {...form.getInputProps('electricSupply', { type: 'checkbox' })}
         />
 
         <TextInput
           label="장소 관리자 또는 연락처"
           placeholder="공연 허가 및 문의를 위한 연락처를 입력해주세요"
           leftSection={<IconPhone size={16} />}
-          {...form.getInputProps('contactInfo')}
+          {...form.getInputProps('contact')}
         />
 
         <Textarea
@@ -127,7 +137,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({
           placeholder="버스킹 장소에 대한 추가 정보를 입력해주세요 (공연 가능 시간, 전력 공급 여부 등)"
           minRows={3}
           leftSection={<IconInfoCircle size={16} />}
-          {...form.getInputProps('description')}
+          {...form.getInputProps('notes')}
         />
 
         <FileInput
