@@ -7,9 +7,9 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { LocationForm, useLocations } from '@features/location';
 import { LocationMapWidget } from '@widgets/busking-location/LocationMapWidget';
-import { Location } from '@features/location/model/location';
 import { STANDARD_RADIUS } from '@app/config/style';
 import { LocationControlWidget } from '@widgets/busking-location/LocationControlWidget';
+import { BuskingSpot } from '@entities/location/model/spot';
 
 const MapSection = styled.div`
   flex: 1;
@@ -24,24 +24,22 @@ const MapSection = styled.div`
 const BuskingLocationsPage: React.FC = () => {
   const [opened, { open, close }] = useDisclosure(false);
   // TODO - [Zustand 로 이동]
-  const [editingLocation, setEditingLocation] = useState<Location | null>(null);
-  // TODO - [Zustand 로 이동]
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+  const [editingLocation, setEditingLocation] = useState<BuskingSpot | null>(
     null
   );
-  const { locations, addLocation } = useLocations();
+  const { addLocation } = useLocations();
   //   const router = useRouter();
 
-  const handleAddLocation = (locationData: Omit<Location, 'id'>) => {
+  const handleAddLocation = (locationData: Omit<BuskingSpot, 'id'>) => {
     try {
       addLocation({
         ...locationData,
         id: Date.now().toString(),
         name: '',
         address: '',
-        latitude: 0,
-        longitude: 0,
-        requiresApprove: false,
+        lat: 0,
+        lng: 0,
+        permitRequired: false,
       });
       notifications.show({
         title: '위치 추가 완료',
@@ -85,17 +83,9 @@ const BuskingLocationsPage: React.FC = () => {
     open();
   };
 
-  const handleMarkerClick = (location: Location) => {
-    setSelectedLocation(location);
-  };
-
   return (
     <MapSection>
-      <LocationMapWidget
-        locations={locations}
-        selectedLocation={selectedLocation}
-        onMarkerClick={handleMarkerClick}
-      />
+      <LocationMapWidget />
       <LocationControlWidget openLocationAddModal={openLocationAddModal} />
 
       <Modal

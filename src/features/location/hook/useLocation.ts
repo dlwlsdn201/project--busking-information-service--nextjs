@@ -1,10 +1,11 @@
 // shared/hooks/useLocations.ts
 import { useState, useEffect } from 'react';
-import { Location } from '@features/location/model/location';
+import { SAMPLE_BUSKING_SPOT_DATA } from '@widgets/busking-location/sample_data/sample_location_data';
+import { BuskingSpot } from '@entities/location/model/spot';
 
 export const useLocations = () => {
   // shared/hooks/useLocations.ts (계속)
-  const [locations, setLocations] = useState<Location[]>([]);
+  const [locations, setLocations] = useState<BuskingSpot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // 초기 데이터 로딩
@@ -19,42 +20,7 @@ export const useLocations = () => {
         //   setLocations(JSON.parse(storedLocations));
         // } else {
         // 초기 샘플 데이터
-        const initialLocations: Location[] = [
-          {
-            id: '1',
-            name: '홍대 걷고싶은거리',
-            address: '서울특별시 마포구 와우산로 94',
-            latitude: 37.5558,
-            longitude: 126.9227,
-            requiresApprove: true,
-            contactInfo: '02-323-1234',
-            description:
-              '홍대 앞 인기 버스킹 장소. 주말 오후 2시부터 10시까지 공연 가능. 사전 허가 필요.',
-            imageUrls: ['/sample_location1.jpg', '/sample_location2.jpg'],
-          },
-          {
-            id: '2',
-            name: '해운대 버스킹존',
-            address: '부산광역시 해운대구 해운대해변로 264',
-            latitude: 35.1584,
-            longitude: 129.1601,
-            requiresApprove: true,
-            contactInfo: '051-749-4000',
-            description:
-              '해운대 해변가 공연장. 여름 시즌에 특히 인기가 많음. 사전 예약제.',
-            imageUrls: ['/sample_location1.jpg', '/sample_location2.jpg'],
-          },
-          {
-            id: '3',
-            name: '대학로 마로니에공원',
-            address: '서울특별시 종로구 대학로 116',
-            latitude: 37.5812,
-            longitude: 127.0017,
-            requiresApprove: false,
-            description: '자유롭게 버스킹 가능한 공간. 전기 콘센트 없음.',
-            imageUrls: ['/sample_location1.jpg', '/sample_location2.jpg'],
-          },
-        ];
+        const initialLocations: BuskingSpot[] = SAMPLE_BUSKING_SPOT_DATA;
         setLocations(initialLocations);
         localStorage.setItem(
           'buskingLocations',
@@ -72,7 +38,7 @@ export const useLocations = () => {
   }, []);
 
   // 위치 추가
-  const addLocation = (location: Location) => {
+  const addLocation = (location: BuskingSpot) => {
     const updatedLocations = [...locations, location];
     setLocations(updatedLocations);
     localStorage.setItem('buskingLocations', JSON.stringify(updatedLocations));
@@ -86,7 +52,7 @@ export const useLocations = () => {
   };
 
   // 위치 수정
-  const updateLocation = (updatedLocation: Location) => {
+  const updateLocation = (updatedLocation: BuskingSpot) => {
     const updatedLocations = locations.map((loc) =>
       loc.id === updatedLocation.id ? updatedLocation : loc
     );

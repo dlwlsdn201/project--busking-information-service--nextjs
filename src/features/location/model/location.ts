@@ -3,8 +3,8 @@ export interface Location {
   id: string;
   name: string;
   address: string;
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lng: number;
   requiresApprove: boolean;
   contactInfo?: string;
   description?: string;
@@ -14,8 +14,8 @@ export interface Location {
 export interface LocationFormData {
   name: string;
   address: string;
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lng: number;
   requiresApprove: boolean;
   contactInfo?: string;
   description?: string;
