@@ -7,7 +7,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { LocationForm, useLocations } from '@features/location';
 import { LocationMapWidget } from '@widgets/busking-location/LocationMapWidget';
-import { Location } from '@features/location/model/location';
 import { STANDARD_RADIUS } from '@app/config/style';
 import { LocationControlWidget } from '@widgets/busking-location/LocationControlWidget';
 import { BuskingSpot } from '@entities/location/model/spot';
@@ -25,7 +24,9 @@ const MapSection = styled.div`
 const BuskingLocationsPage: React.FC = () => {
   const [opened, { open, close }] = useDisclosure(false);
   // TODO - [Zustand 로 이동]
-  const [editingLocation, setEditingLocation] = useState<Location | null>(null);
+  const [editingLocation, setEditingLocation] = useState<BuskingSpot | null>(
+    null
+  );
   const { addLocation } = useLocations();
   //   const router = useRouter();
 

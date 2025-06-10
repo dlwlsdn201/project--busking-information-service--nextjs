@@ -1,6 +1,5 @@
 // widgets/map/MapContainer.tsx
 import { useInitialMap } from '@entities/location/hook/useInitialMap';
-import { useMapMarkers } from '@entities/location/hook/useMapMarkers';
 import styled from 'styled-components';
 
 // 동적 임포트로 SSR 방지
@@ -19,13 +18,9 @@ const MapWrapper = styled.div`
 `;
 
 export const LocationMapWidget = () => {
-  // 지도 초기화
-  const { mapRef, setSelectedLocation } = useInitialMap();
+  const { mapContainerRef } = useInitialMap();
 
-  // 마커 표시
-  const { markers } = useMapMarkers({
-    kakaoMap: mapRef,
-    setSelectedLocation,
-  });
-  return <MapWrapper ref={mapRef} />;
+  // 지도 초기화
+
+  return <MapWrapper ref={mapContainerRef} />;
 };

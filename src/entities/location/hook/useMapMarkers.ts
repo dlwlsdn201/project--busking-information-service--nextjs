@@ -2,17 +2,13 @@ import { useEffect, useState } from 'react';
 import { BuskingSpot } from '../model/spot';
 import { useLocations } from '@features/location';
 
-export const useMapMarkers = ({ kakaoMap, setSelectedLocation }) => {
-  const [markers, setMarkers] = useState<BuskingSpot[]>([]);
+export const useMapMarkers = ({ kakaoMap }) => {
   const [currentSlides, setCurrentSlides] = useState<{ [key: number]: number }>(
     {}
   );
 
   const { locations } = useLocations();
 
-  const handleMarkerClick = (location: Location) => {
-    setSelectedLocation(location);
-  };
   // 수정/삭제 핸들러
   const editSpot = (spotId: number) => {
     console.log('Edit spot:', spotId);
@@ -28,8 +24,8 @@ export const useMapMarkers = ({ kakaoMap, setSelectedLocation }) => {
     }
   };
 
-  // InfoWindow 컨텐츠 생성
-  const createInfoWindowContent = (spot: BuskingSpot) => {
+  // Custom overlay 컨텐츠 생성
+  const createOverlayContent = (spot: BuskingSpot) => {
     const permitBadge = spot.permitRequired
       ? '<span class="permit-badge permit-required">허가 필요</span>'
       : '<span class="permit-badge permit-not-required">허가 불필요</span>';
@@ -73,9 +69,14 @@ export const useMapMarkers = ({ kakaoMap, setSelectedLocation }) => {
         : '';
 
     return `
-      <div class="marker-popup" style="width: 340px;">
+      <div class="marker-popup">
         <div class="popup-header">
-          <div class="location-title">${spot.name}</div>
+          <div class="location-title-container">
+            <span class="location-title">
+              ${spot.name}
+            </span>
+            <span class="close" onclick="() => overlay.setMap(null)" title="닫기">X</span>
+          </div>
           ${permitBadge}
         </div>
         
@@ -106,52 +107,67 @@ export const useMapMarkers = ({ kakaoMap, setSelectedLocation }) => {
     `;
   };
 
-  // 커스텀 마커 이미지 생성
-  const createMarkerImage = () => {
-    const markerImageSrc =
-      'data:image/svg+xml;base64,' +
-      'PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAzMiA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMu' +
-      'b3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTYgMEM3LjE2MyAwIDAgNy4xNjMgMCAxNmMwIDE2IDE2IDI0IDE2IDI0czE2LTggMTYtMjRDMzIgNy4xNjMgMjQuODM3IDAgMTYgMHoiIGZpbGw9IiM2NjdlZWEiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSI4IiBmaWxsPSJ3aGl0ZSIvPjx0ZXh0IHg9IjE2IiB5PSIyMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzY2N2VlYSIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiPsKfjI08L3RleHQ+PC9zdmc+';
+  const createOverlayContentElement = (spot: BuskingSpot): HTMLElement => {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = createOverlayContent(spot); // 기존 함수는 문자열 반환
+    return wrapper.firstElementChild as HTMLElement;
+  };
 
-    return new window.kakao.maps.MarkerImage(
-      markerImageSrc,
-      new window.kakao.maps.Size(32, 40),
-      { offset: new window.kakao.maps.Point(16, 40) }
-    );
+  // 커스텀 마커 이미지 생성
+  // const createMarkerImage = () => {
+  //   const markerImageSrc =
+  //     'https://png.pngtree.com/png-vector/20210214/ourmid/pngtree-location-marker-png-image_2921053.jpg';
+
+  //   return new window.kakao.maps.MarkerImage(
+  //     markerImageSrc,
+  //     new window.kakao.maps.Size(32, 40),
+  //     { offset: new window.kakao.maps.Point(16, 40) }
+  //   );
+  // };
+
+  const addOverlayCloseEvent = (overlay: {
+    getContent: () => Element | null;
+    setMap: (arg0: null) => void;
+    spotId: string | number;
+  }) => {
+    const overlayContentElement = overlay.getContent();
+    if (!overlayContentElement) return;
+    // 닫기 버튼 클릭 이벤트 등록
+    const closeButton = overlayContentElement.querySelector('.close');
+    if (!closeButton) return;
+    closeButton.addEventListener('click', () => {
+      overlay.setMap(null);
+      setCurrentSlides((prev) => ({ ...prev, [overlay.spotId]: 0 }));
+    });
   };
 
   // 마커들 생성
   useEffect(() => {
-    if (!kakaoMap.current) return;
-    console.log('true');
-    const markerImage = createMarkerImage();
-    const infoWindows: any[] = [];
+    if (!kakaoMap) return;
+    // const markerImage = createMarkerImage();
     locations.forEach((spot) => {
       const marker = new window.kakao.maps.Marker({
         position: new window.kakao.maps.LatLng(spot.lat, spot.lng),
-        image: markerImage,
+        // image: markerImage,
         title: spot.name,
         clickable: true,
       });
 
-      const infoWindow = new window.kakao.maps.InfoWindow({
-        content: createInfoWindowContent(spot),
+      const overlay = new window.kakao.maps.CustomOverlay({
+        content: createOverlayContentElement(spot),
+        position: marker.getPosition(),
         removable: true,
       });
 
       window.kakao.maps.event.addListener(marker, 'click', () => {
-        infoWindows.forEach((iw) => iw.close());
-        infoWindow.open(kakaoMap, marker);
+        overlay.setMap(kakaoMap);
         setCurrentSlides((prev) => ({ ...prev, [spot.id]: 0 }));
       });
 
-      console.log('kakaoMap:', kakaoMap);
-      // marker.setMap(kakaoMap.current);
-      infoWindows.push(infoWindow);
+      marker.setMap(kakaoMap);
+
+      addOverlayCloseEvent(overlay);
     });
-    console.log({ location, infoWindows });
-    setMarkers(infoWindows);
-    console.groupEnd();
   }, [kakaoMap, locations]);
 
   // 전역 함수 등록
@@ -213,6 +229,4 @@ export const useMapMarkers = ({ kakaoMap, setSelectedLocation }) => {
       delete window.buskingMap;
     };
   }, [locations, currentSlides]);
-
-  return { markers };
 };
