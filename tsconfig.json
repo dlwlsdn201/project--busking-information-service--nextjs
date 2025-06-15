@@ -29,7 +29,8 @@
       "@@types/*": ["types/*"],
       "@widgets/*": ["widgets/*"],
       "@assets/*": ["assets/*"],
-      "@app/*": ["app/*"]
+      "@app/*": ["app/*"],
+      "@store/*": ["store/*"]
     },
     "types": [
       "jest",

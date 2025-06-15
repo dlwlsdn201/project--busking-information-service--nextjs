@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BuskingSpot } from '../model/spot';
 import { useLocations } from '@features/location';
+// import { useDisclosure } from '@mantine/hooks';
 
 export const useMapMarkers = ({ kakaoMap }: { kakaoMap: kakao.maps.Map }) => {
   const [currentSlides, setCurrentSlides] = useState<{ [key: number]: number }>(
@@ -8,10 +9,14 @@ export const useMapMarkers = ({ kakaoMap }: { kakaoMap: kakao.maps.Map }) => {
   );
 
   const { locations } = useLocations();
+  /* TODO -[수정 Form Modal 구현] */
+  // const [ { open }] = useDisclosure(false);
+  // const { /editLocation, setEditLocation } = useLocationStore();
 
   // 수정/삭제 핸들러
   const editSpot = (spotId: number) => {
     console.log('Edit spot:', spotId);
+    open();
     // 수정 로직 구현
     alert(`${spotId}번 장소 수정 기능`);
   };

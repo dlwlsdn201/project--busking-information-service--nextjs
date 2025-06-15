@@ -22,7 +22,7 @@ import { AddressSearch } from './AddressSearch';
 import { BuskingSpot } from '@entities/location/model/spot';
 
 interface LocationFormProps {
-  initialData: BuskingSpot | null;
+  initialData: BuskingSpot | undefined;
   onSubmit: (data: Omit<BuskingSpot, 'id'>) => void;
   onCancel: () => void;
 }
