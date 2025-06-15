@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { BuskingSpot } from '../model/spot';
 import { useLocations } from '@features/location';
 
-export const useMapMarkers = ({ kakaoMap }) => {
+export const useMapMarkers = ({ kakaoMap }: { kakaoMap: kakao.maps.Map }) => {
   const [currentSlides, setCurrentSlides] = useState<{ [key: number]: number }>(
     {}
   );
@@ -34,6 +34,7 @@ export const useMapMarkers = ({ kakaoMap }) => {
       ? '<div class="status-indicator status-available"><div class="status-dot"></div>이용 가능</div>'
       : '<div class="status-indicator status-unavailable"><div class="status-dot"></div>이용 불가</div>';
 
+    console.log({ spot });
     const imageCarousel =
       spot.images.length > 0
         ? `
@@ -75,7 +76,7 @@ export const useMapMarkers = ({ kakaoMap }) => {
             <span class="location-title">
               ${spot.name}
             </span>
-            <span class="close" onclick="() => overlay.setMap(null)" title="닫기">X</span>
+            <span class="close" onclick="() => overlay.setMap(null)" title="닫기">x</span>
           </div>
           ${permitBadge}
         </div>
@@ -105,12 +106,6 @@ export const useMapMarkers = ({ kakaoMap }) => {
         </div>
       </div>
     `;
-  };
-
-  const createOverlayContentElement = (spot: BuskingSpot): HTMLElement => {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = createOverlayContent(spot); // 기존 함수는 문자열 반환
-    return wrapper.firstElementChild as HTMLElement;
   };
 
   // 커스텀 마커 이미지 생성
@@ -153,6 +148,12 @@ export const useMapMarkers = ({ kakaoMap }) => {
         clickable: true,
       });
 
+      const createOverlayContentElement = (spot: BuskingSpot): HTMLElement => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = createOverlayContent(spot); // 기존 함수는 문자열 반환
+        return wrapper.firstElementChild as HTMLElement;
+      };
+
       const overlay = new window.kakao.maps.CustomOverlay({
         content: createOverlayContentElement(spot),
         position: marker.getPosition(),
@@ -168,16 +169,15 @@ export const useMapMarkers = ({ kakaoMap }) => {
 
       addOverlayCloseEvent(overlay);
     });
-  }, [kakaoMap, locations]);
+  }, [kakaoMap, locations, currentSlides]);
 
   // 전역 함수 등록
   useEffect(() => {
     // 캐러셀 제어 함수들
-    const updateCarousel = (spotId: number) => {
+    const updateCarousel = (spotId: number, nextSlideIdx: number) => {
       const carousel = document.getElementById(`carousel-${spotId}`);
       if (!carousel) return;
-
-      const currentSlide = currentSlides[spotId] || 0;
+      const currentSlide = nextSlideIdx || 0;
       carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
 
       const navDots = carousel.parentNode?.querySelectorAll('.nav-dot');
@@ -196,7 +196,7 @@ export const useMapMarkers = ({ kakaoMap }) => {
       const newSlide = (currentSlides[spotId] + 1) % totalSlides;
 
       setCurrentSlides((prev) => ({ ...prev, [spotId]: newSlide }));
-      setTimeout(() => updateCarousel(spotId), 0);
+      setTimeout(() => updateCarousel(spotId, newSlide), 0);
     };
 
     const prevSlide = (spotId: number) => {
@@ -209,12 +209,12 @@ export const useMapMarkers = ({ kakaoMap }) => {
       const newSlide = (currentSlides[spotId] - 1 + totalSlides) % totalSlides;
 
       setCurrentSlides((prev) => ({ ...prev, [spotId]: newSlide }));
-      setTimeout(() => updateCarousel(spotId), 0);
+      setTimeout(() => updateCarousel(spotId, newSlide), 0);
     };
 
     const goToSlide = (spotId: number, slideIndex: number) => {
       setCurrentSlides((prev) => ({ ...prev, [spotId]: slideIndex }));
-      setTimeout(() => updateCarousel(spotId), 0);
+      setTimeout(() => updateCarousel(spotId, slideIndex), 0);
     };
 
     window.buskingMap = {
