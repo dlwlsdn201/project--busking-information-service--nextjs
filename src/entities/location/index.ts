@@ -2,4 +2,5 @@
 export { BuskingLocationCard } from './ui/BuskingLocationCard';
 
 // SECTION - [hooks]
-export { useInfoWindow } from './hook/useInfoWindow';
+export { useInitialMap } from './hook/useInitialMap';
+export { useMapMarkers } from './hook/useMapMarkers';
