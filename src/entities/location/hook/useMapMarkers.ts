@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import { BuskingSpot } from '../model/spot';
 import { useLocations } from '@features/location';
 
-export const useMapMarkers = ({ kakaoMap }: { kakaoMap: kakao.maps.Map }) => {
+export const useMapMarkers = ({
+  kakaoMap,
+}: {
+  kakaoMap: kakao.maps.Map | null;
+}) => {
   const [currentSlides, setCurrentSlides] = useState<{ [key: number]: number }>(
     {}
   );
@@ -34,7 +38,6 @@ export const useMapMarkers = ({ kakaoMap }: { kakaoMap: kakao.maps.Map }) => {
       ? '<div class="status-indicator status-available"><div class="status-dot"></div>이용 가능</div>'
       : '<div class="status-indicator status-unavailable"><div class="status-dot"></div>이용 불가</div>';
 
-    console.log({ spot });
     const imageCarousel =
       spot.images.length > 0
         ? `
