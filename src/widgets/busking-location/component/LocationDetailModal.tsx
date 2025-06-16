@@ -6,9 +6,9 @@ import styled from 'styled-components';
 const StyledModal = styled(Modal)`
   .mantine-Modal-content {
     padding: 0 !important;
-    border-radius: 16px;
+    border-radius: 0.5rem;
     overflow: hidden;
-    max-width: 340px;
+    max-width: 21.25rem;
     width: 100%;
   }
 `;
@@ -20,32 +20,32 @@ const HeaderSection = styled.div`
 
 const CarouselContainer = styled.div`
   position: relative;
-  height: 200px;
+  height: 12.5rem;
   overflow: hidden;
 `;
 
-const CarouselSlides = styled.div`
+const CarouselSlides = styled.div<{ $currentSlide: number }>`
   display: flex;
   transition: transform 0.3s ease;
   height: 100%;
-  transform: translateX(-${(props) => props.currentSlide * 100}%);
+  transform: translateX(-${(props) => props.$currentSlide * 100}%);
 `;
 
-const CarouselSlide = styled.div`
+const CarouselSlide = styled.div<{ $imageUrl: string }>`
   min-width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url(${(props) => props.imageUrl});
+  background-image: url(${(props) => props.$imageUrl});
 `;
 
 const CarouselArrow = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   background: rgba(0, 0, 0, 0.5);
   border: none;
   border-radius: 50%;
@@ -54,7 +54,7 @@ const CarouselArrow = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 1rem;
   transition: background 0.2s;
 
   &:hover {
@@ -62,21 +62,21 @@ const CarouselArrow = styled.button`
   }
 
   &.prev {
-    left: 12px;
+    left: 0.75rem;
   }
 
   &.next {
-    right: 12px;
+    right: 0.75rem;
   }
 `;
 
 const CarouselNav = styled.div`
   position: absolute;
-  bottom: 12px;
+  bottom: 0.75rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 6px;
+  gap: 0.375rem;
 `;
 
 const NavDot = styled.div`
@@ -92,11 +92,11 @@ const NavDot = styled.div`
   }
 `;
 
-const StatusDot = styled.div`
+const StatusDot = styled.div<{ $available: boolean }>`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: ${(props) => (props.available ? '#48bb78' : '#f56565')};
+  background: ${(props) => (props.$available ? '#48bb78' : '#f56565')};
 `;
 
 // Mock 데이터
@@ -120,11 +120,17 @@ const mockLocationData = {
   ],
 };
 
+interface BuskingLocationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  locationData: typeof mockLocationData;
+}
+
 export const BuskingLocationModal = ({
-  opened,
+  isOpen,
   onClose,
   locationData = mockLocationData,
-}) => {
+}: BuskingLocationModalProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [startX, setStartX] = useState(0);
 
@@ -138,7 +144,7 @@ export const BuskingLocationModal = ({
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
 
@@ -167,7 +173,7 @@ export const BuskingLocationModal = ({
 
   return (
     <StyledModal
-      opened={opened}
+      opened={isOpen}
       onClose={onClose}
       withCloseButton={false}
       centered
@@ -199,9 +205,9 @@ export const BuskingLocationModal = ({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <CarouselSlides currentSlide={currentSlide}>
+        <CarouselSlides $currentSlide={currentSlide}>
           {locationData.images.map((image, index) => (
-            <CarouselSlide key={index} imageUrl={image} />
+            <CarouselSlide key={index} $imageUrl={image} />
           ))}
         </CarouselSlides>
 
@@ -249,7 +255,7 @@ export const BuskingLocationModal = ({
                 : 'text-red-600'
             }`}
           >
-            <StatusDot available={locationData.electricityAvailable} />
+            <StatusDot $available={locationData.electricityAvailable} />
             {locationData.electricityAvailable ? '이용 가능' : '이용 불가'}
           </div>
         </div>

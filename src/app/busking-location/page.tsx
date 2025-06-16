@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import styled from 'styled-components';
 import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -10,6 +9,7 @@ import { LocationMapWidget } from '@widgets/busking-location/LocationMapWidget';
 import { STANDARD_RADIUS } from '@app/config/style';
 import { LocationControlWidget } from '@widgets/busking-location/LocationControlWidget';
 import { BuskingSpot } from '@entities/location/model/spot';
+import { BuskingLocationModal } from '@widgets/busking-location';
 import { useLocationStore } from '@store/index';
 
 const MapSection = styled.div`
@@ -23,11 +23,16 @@ const MapSection = styled.div`
 `;
 
 const BuskingLocationsPage: React.FC = () => {
-  /* TODO -[useLocationStore 와 useDisclosure 을 합성하여 장소 Modal 신규 핸들러 훅으로 리팩터링] */
   const [opened, { open, close }] = useDisclosure(false);
-  const { editLocation, setEditLocation } = useLocationStore();
   const { addLocation } = useLocations();
-  //   const router = useRouter();
+
+  const {
+    isInfoModalOpen,
+    setIsInfoModalOpen,
+    editLocation,
+    setEditLocation,
+    infoData,
+  } = useLocationStore();
 
   const handleAddLocation = (locationData: Omit<BuskingSpot, 'id'>) => {
     try {
@@ -78,7 +83,7 @@ const BuskingLocationsPage: React.FC = () => {
   // };
 
   const openLocationAddModal = () => {
-    setEditLocation();
+    setEditLocation(undefined);
     open();
   };
 
@@ -87,6 +92,7 @@ const BuskingLocationsPage: React.FC = () => {
       <LocationMapWidget />
       <LocationControlWidget openLocationAddModal={openLocationAddModal} />
 
+      {/* 버스킹 정보 입력 폼 Modal */}
       <Modal
         opened={opened}
         onClose={close}
@@ -104,6 +110,13 @@ const BuskingLocationsPage: React.FC = () => {
           onCancel={close}
         />
       </Modal>
+
+      {/* 버스킹 상세정보 Modal */}
+      <BuskingLocationModal
+        locationData={infoData}
+        isOpen={isInfoModalOpen}
+        onClose={() => setIsInfoModalOpen(false)}
+      />
     </MapSection>
   );
 };
