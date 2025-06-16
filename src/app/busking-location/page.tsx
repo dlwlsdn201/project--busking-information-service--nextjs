@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -10,6 +10,7 @@ import { LocationMapWidget } from '@widgets/busking-location/LocationMapWidget';
 import { STANDARD_RADIUS } from '@app/config/style';
 import { LocationControlWidget } from '@widgets/busking-location/LocationControlWidget';
 import { BuskingSpot } from '@entities/location/model/spot';
+import { useLocationStore } from '@store/index';
 
 const MapSection = styled.div`
   flex: 1;
@@ -22,11 +23,9 @@ const MapSection = styled.div`
 `;
 
 const BuskingLocationsPage: React.FC = () => {
+  /* TODO -[useLocationStore 와 useDisclosure 을 합성하여 장소 Modal 신규 핸들러 훅으로 리팩터링] */
   const [opened, { open, close }] = useDisclosure(false);
-  // TODO - [Zustand 로 이동]
-  const [editingLocation, setEditingLocation] = useState<BuskingSpot | null>(
-    null
-  );
+  const { editLocation, setEditLocation } = useLocationStore();
   const { addLocation } = useLocations();
   //   const router = useRouter();
 
@@ -79,7 +78,7 @@ const BuskingLocationsPage: React.FC = () => {
   // };
 
   const openLocationAddModal = () => {
-    setEditingLocation(null);
+    setEditLocation();
     open();
   };
 
@@ -100,7 +99,7 @@ const BuskingLocationsPage: React.FC = () => {
         }}
       >
         <LocationForm
-          initialData={editingLocation}
+          initialData={editLocation}
           onSubmit={handleAddLocation}
           onCancel={close}
         />
