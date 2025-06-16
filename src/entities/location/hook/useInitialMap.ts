@@ -1,30 +1,25 @@
 import { useKakaoMapScript } from '@shared/hook';
 import { useEffect, useRef, useState } from 'react';
-import { BuskingSpot } from '../model/spot';
 import { useMapMarkers } from './useMapMarkers';
 
 export const useInitialMap = () => {
-  const mapContainerRef = useRef<any>(null);
-  const [mapInstance, setMapInstance] = useState<any>(null);
-  // TODO - [Zustand 로 이동]
-  const [selectedLocation, setSelectedLocation] = useState<BuskingSpot | null>(
-    null
-  );
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const [mapInstance, setMapInstance] = useState<kakao.maps.Map | null>(null);
 
   const kakaoMapLoaded = useKakaoMapScript();
 
   // 선택된 위치가 변경될 때 해당 마커로 이동
-  useEffect(() => {
-    if (!kakaoMapLoaded || !mapContainerRef.current || !selectedLocation)
-      return;
+  // useEffect(() => {
+  //   if (!kakaoMapLoaded || !mapContainerRef.current || !selectedLocation)
+  //     return;
 
-    const position = new window.kakao.maps.LatLng(
-      selectedLocation.lat,
-      selectedLocation.lng
-    );
+  //   const position = new window.kakao.maps.LatLng(
+  //     selectedLocation.lat,
+  //     selectedLocation.lng
+  //   );
 
-    mapContainerRef.current.panTo(position);
-  }, [kakaoMapLoaded, selectedLocation]);
+  //   mapContainerRef.current.panTo(position);
+  // }, [kakaoMapLoaded, selectedLocation]);
 
   // 지도 초기화
   useEffect(() => {
@@ -64,6 +59,5 @@ export const useInitialMap = () => {
   return {
     mapContainerRef,
     mapInstance,
-    setSelectedLocation,
   };
 };
