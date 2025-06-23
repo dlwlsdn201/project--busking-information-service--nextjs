@@ -13,11 +13,6 @@ const StyledModal = styled(Modal)`
   }
 `;
 
-const HeaderSection = styled.div`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-`;
-
 const CarouselContainer = styled.div`
   position: relative;
   height: 12.5rem;
@@ -175,31 +170,34 @@ export const BuskingLocationModal = ({
     <StyledModal
       opened={isOpen}
       onClose={onClose}
-      withCloseButton={false}
+      withCloseButton={true}
       centered
-      size="auto"
+      size="md"
+      styles={{
+        title: {
+          width: '100%',
+        },
+        body: {
+          padding: 0,
+        },
+      }}
+      // Header Section
+      title={
+        <div className="flex items-center w-full justify-start gap-x-2">
+          <div className="text-lg font-semibold">{locationData.title}</div>
+          <Badge
+            variant="outline"
+            className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
+              locationData.permitRequired
+                ? 'bg-red-100 bg-opacity-20 border-red-200 border-opacity-40 text-white'
+                : 'bg-green-100 bg-opacity-20 border-green-200 border-opacity-40 text-white'
+            }`}
+          >
+            {locationData.permitRequired ? '허가 필요' : '허가 불필요'}
+          </Badge>
+        </div>
+      }
     >
-      {/* Header Section */}
-      <HeaderSection className="p-5 relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-6 h-6 bg-white bg-opacity-20 border-0 rounded-full text-white cursor-pointer flex items-center justify-center text-base hover:bg-opacity-30 transition-colors"
-        >
-          ×
-        </button>
-        <div className="text-lg font-semibold mb-2">{locationData.title}</div>
-        <Badge
-          variant="outline"
-          className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
-            locationData.permitRequired
-              ? 'bg-red-100 bg-opacity-20 border-red-200 border-opacity-40 text-white'
-              : 'bg-green-100 bg-opacity-20 border-green-200 border-opacity-40 text-white'
-          }`}
-        >
-          {locationData.permitRequired ? '허가 필요' : '허가 불필요'}
-        </Badge>
-      </HeaderSection>
-
       {/* Image Carousel */}
       <CarouselContainer
         onTouchStart={handleTouchStart}
