@@ -148,11 +148,11 @@ export const BuskingLocationModal = ({
     setCurrentSlide(index);
   };
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setStartX(e.changedTouches[0].screenX);
   };
 
-  const handleTouchEnd = (e) => {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     const endX = e.changedTouches[0].screenX;
     if (startX - endX > 50) {
       nextSlide();
