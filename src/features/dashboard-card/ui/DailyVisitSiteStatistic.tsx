@@ -8,7 +8,7 @@ interface Props {
 }
 export const DailyVisitSiteStatistic: React.FC<Props> = ({ isLoading }) => {
   // 현재 접속자 수 차트 데이터
-  const SAMPLE_visitorData = [
+  const sampleVisitorData = [
     { date: '3월 1일', visitors: 420 },
     { date: '3월 2일', visitors: 380 },
     { date: '3월 3일', visitors: 510 },
@@ -33,7 +33,7 @@ export const DailyVisitSiteStatistic: React.FC<Props> = ({ isLoading }) => {
         <Skeleton height={250} radius="md" />
       ) : (
         <AreaLineChart
-          data={SAMPLE_visitorData}
+          data={sampleVisitorData}
           xKey="date"
           yKey="visitors"
           color="#4c6ef5"

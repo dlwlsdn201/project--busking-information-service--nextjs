@@ -10,7 +10,7 @@ export const ThisWeekEventEachRegionStatistic: React.FC<Props> = ({
   isLoading,
 }) => {
   // 지역별 버스킹 공연 수 차트 데이터
-  const SAMPLE_performanceData = [
+  const samplePerformanceData = [
     { region: '서울', performances: 87 },
     { region: '부산', performances: 42 },
     { region: '대구', performances: 28 },
@@ -31,7 +31,7 @@ export const ThisWeekEventEachRegionStatistic: React.FC<Props> = ({
         <Skeleton height={250} radius="md" />
       ) : (
         <BarChart
-          data={SAMPLE_performanceData}
+          data={samplePerformanceData}
           xKey="region"
           yKey="performances"
           color="#ae3ec9"

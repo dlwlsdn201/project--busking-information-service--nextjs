@@ -22,7 +22,7 @@ export const useColorThemeMode = (): UseColorThemeModeReturn => {
       setIsDarkMode(false);
       setMounted(false);
     };
-  }, []);
+  }, [isMounted]);
 
   useEffect(() => {
     if (isMounted) {
