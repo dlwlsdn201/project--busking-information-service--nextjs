@@ -1,5 +1,5 @@
 // features/locations/LocationForm.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextInput,
   Switch,
@@ -54,6 +54,15 @@ export const LocationForm: React.FC<LocationFormProps> = ({
         value.trim().length > 0 ? null : '주소를 입력해주세요',
     },
   });
+
+  // initialData가 변경될 때 폼 값을 업데이트
+  useEffect(() => {
+    if (initialData) {
+      form.setValues(initialData);
+    } else {
+      form.reset();
+    }
+  }, [initialData, form]);
 
   const handleAddressSelect = (address: string, lat: number, lng: number) => {
     form.setValues({
@@ -157,7 +166,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({
             type="submit"
             className="bg-gradient-to-r from-blue-500 to-indigo-600"
           >
-            등록하기
+            {initialData ? '수정하기' : '등록하기'}
           </Button>
         </Group>
       </Stack>

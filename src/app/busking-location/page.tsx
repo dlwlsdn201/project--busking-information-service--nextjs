@@ -24,41 +24,51 @@ const MapSection = styled.div`
 
 const BuskingLocationsPage: React.FC = () => {
   const [opened, { open, close }] = useDisclosure(false);
-  const { addLocation } = useLocations();
+  const { addLocation, updateLocation } = useLocations();
 
   const {
     isInfoModalOpen,
     setIsInfoModalOpen,
-    editLocation,
-    setEditLocation,
-    infoData,
+    targetLocation,
+    setTargetLocation,
   } = useLocationStore();
 
   const handleAddLocation = (locationData: Omit<BuskingSpot, 'id'>) => {
     try {
-      addLocation({
-        ...locationData,
-        id: Date.now().toString(),
-        name: '',
-        address: '',
-        lat: 0,
-        lng: 0,
-        permitRequired: false,
-      });
-      notifications.show({
-        title: '위치 추가 완료',
-        message: '새로운 버스킹 장소가 성공적으로 등록되었습니다.',
-        color: 'teal',
-      });
+      if (targetLocation) {
+        // 수정 모드
+        updateLocation({
+          ...locationData,
+          id: targetLocation.id,
+        });
+        notifications.show({
+          title: '위치 수정 완료',
+          message: '버스킹 장소가 성공적으로 수정되었습니다.',
+          color: 'teal',
+        });
+      } else {
+        // 등록 모드
+        addLocation({
+          ...locationData,
+          id: Date.now().toString(),
+        });
+        notifications.show({
+          title: '위치 추가 완료',
+          message: '새로운 버스킹 장소가 성공적으로 등록되었습니다.',
+          color: 'teal',
+        });
+      }
       close();
     } catch (error) {
       notifications.show({
         title: '오류 발생',
-        message: '위치 추가 중 문제가 발생했습니다. 다시 시도해주세요.',
+        message: targetLocation
+          ? '위치 수정 중 문제가 발생했습니다. 다시 시도해주세요.'
+          : '위치 추가 중 문제가 발생했습니다. 다시 시도해주세요.',
         color: 'red',
       });
 
-      console.error('Error adding location:', error);
+      console.error('Error handling location:', error);
     }
   };
 
@@ -83,7 +93,11 @@ const BuskingLocationsPage: React.FC = () => {
   // };
 
   const openLocationAddModal = () => {
-    setEditLocation(undefined);
+    setTargetLocation(undefined);
+    open();
+  };
+
+  const openLocationEditModal = () => {
     open();
   };
 
@@ -96,7 +110,7 @@ const BuskingLocationsPage: React.FC = () => {
       <Modal
         opened={opened}
         onClose={close}
-        title="버스킹 장소 등록"
+        title={targetLocation ? '버스킹 장소 수정' : '버스킹 장소 등록'}
         size="lg"
         centered
         overlayProps={{
@@ -105,18 +119,21 @@ const BuskingLocationsPage: React.FC = () => {
         }}
       >
         <LocationForm
-          initialData={editLocation}
+          initialData={targetLocation}
           onSubmit={handleAddLocation}
           onCancel={close}
         />
       </Modal>
 
       {/* 버스킹 상세정보 Modal */}
-      <BuskingLocationModal
-        locationData={infoData}
-        isOpen={isInfoModalOpen}
-        onClose={() => setIsInfoModalOpen(false)}
-      />
+      {targetLocation && (
+        <BuskingLocationModal
+          locationData={targetLocation}
+          isOpen={isInfoModalOpen}
+          onClose={() => setIsInfoModalOpen(false)}
+          onEdit={openLocationEditModal}
+        />
+      )}
     </MapSection>
   );
 };

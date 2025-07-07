@@ -10,7 +10,8 @@ export const useMapMarkers = ({
   const { locations } = useLocations();
   /* TODO -[수정 Form Modal 구현] */
   // const [ { open }] = useDisclosure(false);
-  const { setEditLocation, setIsInfoModalOpen } = useLocationStore();
+  const { setEditLocation, setIsInfoModalOpen, setInfoData } =
+    useLocationStore();
 
   // 마커들 생성
   useEffect(() => {
@@ -25,6 +26,7 @@ export const useMapMarkers = ({
       });
 
       window.kakao.maps.event.addListener(marker, 'click', () => {
+        setInfoData(spot);
         setIsInfoModalOpen(true);
         setEditLocation(spot);
       });
