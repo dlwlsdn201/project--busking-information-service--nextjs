@@ -10,7 +10,7 @@ export const useMapMarkers = ({
   const { locations } = useLocations();
   /* TODO -[수정 Form Modal 구현] */
   // const [ { open }] = useDisclosure(false);
-  const { setEditLocation, setIsInfoModalOpen } = useLocationStore();
+  const { setTargetLocation, setIsInfoModalOpen } = useLocationStore();
 
   // 마커들 생성
   useEffect(() => {
@@ -25,8 +25,8 @@ export const useMapMarkers = ({
       });
 
       window.kakao.maps.event.addListener(marker, 'click', () => {
+        setTargetLocation(spot);
         setIsInfoModalOpen(true);
-        setEditLocation(spot);
       });
 
       const infoWindow = new window.kakao.maps.InfoWindow({
@@ -44,5 +44,5 @@ export const useMapMarkers = ({
       // kakaoMap 인스턴스 위에 marker를 올려줌
       marker.setMap(kakaoMap);
     });
-  }, [kakaoMap, locations, setEditLocation, setIsInfoModalOpen]);
+  }, [kakaoMap, locations, setTargetLocation, setIsInfoModalOpen]);
 };

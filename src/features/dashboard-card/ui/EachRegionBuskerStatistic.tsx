@@ -10,7 +10,7 @@ interface Props {
 }
 export const EachRegionBuskerStatistic: React.FC<Props> = ({ isLoading }) => {
   // 지역별 버스커 수 차트 데이터
-  const SAMPLE_buskerData = [
+  const sampleBuskerData = [
     { id: '서울', value: 156, label: '서울', color: '#ff9393' },
     { id: '부산', value: 78, label: '부산', color: '#f1bd2d' },
     { id: '경기', value: 102, label: '경기', color: '#ff973c' },
@@ -47,7 +47,7 @@ export const EachRegionBuskerStatistic: React.FC<Props> = ({ isLoading }) => {
                 : 200
             }
             labelsType="percent"
-            data={SAMPLE_buskerData}
+            data={sampleBuskerData}
           />
         </ChartWrapper>
       )}

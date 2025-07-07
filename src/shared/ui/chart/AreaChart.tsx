@@ -5,7 +5,7 @@ import { Text } from '@mantine/core';
 import { ChartContainer } from './style/Chart.styled';
 
 interface ChartProps {
-  data: Array<{ [key: string]: any }>;
+  data: Array<{ [key: string]: string | number }>;
   xKey: string;
   yKey: string;
   color?: string;

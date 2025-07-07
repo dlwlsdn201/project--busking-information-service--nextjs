@@ -14,6 +14,13 @@ import { useDisclosure } from '@mantine/hooks';
 import { STANDARD_THEME } from '@app/config/color';
 import { STANDARD_RADIUS } from '../../../app/config/style';
 
+interface KakaoPlaceResult {
+  place_name: string;
+  address_name: string;
+  x: string;
+  y: string;
+}
+
 interface SearchLocationInputProps {
   onLocationSelect: (location: {
     address: string;
@@ -27,7 +34,7 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
 }) => {
   const [opened, { toggle }] = useDisclosure(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<KakaoPlaceResult[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
@@ -42,15 +49,18 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
 
       const ps = new window.kakao.maps.services.Places();
 
-      ps.keywordSearch(searchTerm, (data: any[], status: string) => {
-        if (status === window.kakao.maps.services.Status.OK) {
-          setResults(data.slice(0, 5)); // 최대 5개 결과만 표시
-          if (!opened) toggle();
-        } else {
-          setResults([]);
+      ps.keywordSearch(
+        searchTerm,
+        (data: KakaoPlaceResult[], status: string) => {
+          if (status === window.kakao.maps.services.Status.OK) {
+            setResults(data.slice(0, 5)); // 최대 5개 결과만 표시
+            if (!opened) toggle();
+          } else {
+            setResults([]);
+          }
+          setLoading(false);
         }
-        setLoading(false);
-      });
+      );
     } catch (error) {
       setLoading(false);
       setResults([]);
@@ -59,7 +69,7 @@ export const SearchLocationInput: React.FC<SearchLocationInputProps> = ({
     }
   };
 
-  const handleSelect = (item: any) => {
+  const handleSelect = (item: KakaoPlaceResult) => {
     onLocationSelect({
       address: item.address_name,
       lat: parseFloat(item.y),
